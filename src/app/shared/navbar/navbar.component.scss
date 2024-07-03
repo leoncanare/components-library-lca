@@ -1,0 +1,323 @@
+@use "../scss/mixins" as *;
+@use "../scss/generic-variables" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  background-color: $navbar;
+  width: 100vw;
+  font-family: "Work Sans", sans-serif;
+  font-size: 30px;
+  box-shadow: 0 0 10px $navbar-sdw;
+  z-index: 150;
+
+  &__list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    margin: 0 3rem;
+    padding: 10px 0;
+    // height: 65px;
+
+    &-container {
+      list-style: none;
+      margin-right: auto;
+
+      a {
+        text-decoration: none;
+      }
+
+      &-name {
+        text-decoration: none;
+        color: $principal-text;
+        font-weight: 800;
+        font-family: "Ubuntu", sans-serif;
+      }
+
+      &-ico {
+        color: $principal;
+        width: 30px;
+        margin-left: 1rem;
+        cursor: pointer;
+
+        &:hover {
+          color: $principal-hover;
+        }
+      }
+    }
+
+    &-item {
+      font-size: 15px;
+      list-style: none;
+      font-weight: 500;
+      color: $white;
+      background: $principal-text;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 15px;
+      border: $principal-text 3px solid;
+      text-transform: uppercase;
+      cursor: pointer;
+
+      &:hover {
+        color: $principal-text;
+        font-weight: 600;
+        background: $transparent;
+        transform: scale(1.01);
+      }
+
+      &:hover ul {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      &-drop {
+        position: absolute;
+        top: 33px;
+        left: -3px;
+        background-color: $principal-text;
+        border-radius: 0 15px 15px 15px;
+        width: 200px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 200ms ease-in-out;
+
+        hr {
+          border: 1px solid $navbar;
+          width: 80%;
+          margin: auto;
+          opacity: 0.3;
+        }
+
+        a {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          font-size: 1rem;
+          img {
+            filter: $white-filter;
+            margin-right: 10px;
+            margin-left: 10px;
+          }
+          i {
+            margin-right: 10px;
+          }
+        }
+
+        li {
+          display: flex;
+          list-style: none;
+          justify-items: center;
+          padding: 0.5rem 1rem;
+          border-radius: $radius-s;
+          color: $white;
+          font-size: 10px;
+          list-style: none;
+          font-weight: 500;
+          text-transform: capitalize;
+
+          &:hover:not(.active),
+          &:focus:not(.active) {
+            background-color: $navbar-active;
+            color: $white;
+            img {
+              filter: $white-filter;
+            }
+          }
+        }
+      }
+      i {
+        margin-left: 10px;
+      }
+      .active {
+        background: $navbar;
+        color: $principal-text;
+        img {
+          filter: $principal-filter;
+        }
+      }
+    }
+  }
+
+  /* Hamburger STYLES - START */
+
+  &__hamburger {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+
+    span {
+      background-color: $principal-text;
+      width: 30px;
+      height: 3px;
+      position: absolute;
+      display: flex;
+      justify-content: flex-end;
+      transition: all 0.2s ease;
+      right: 0;
+      border-radius: 5px;
+
+      &:before,
+      &:after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: $principal-text;
+        border-radius: 5px;
+      }
+
+      &:before {
+        transform: translateY(-10px);
+        transition: all 0.3s 0.1s ease;
+      }
+      &:after {
+        transform: translateY(10px);
+        transition: all 0.3s 0.2s ease;
+      }
+    }
+
+    &:hover {
+      opacity: 0.5;
+      span {
+        width: 30px;
+
+        &:before {
+          width: 25px;
+        }
+
+        &:after {
+          width: 20px;
+        }
+      }
+    }
+
+    /* Hamburger Close */
+    &.hamburger-closed {
+      justify-content: center;
+
+      span {
+        background-color: $principal-text;
+        justify-content: center;
+        width: 0px;
+        right: initial;
+        transition: all 0.6s ease;
+
+        &:before,
+        &:after {
+          width: 30px;
+          background-color: $principal-text;
+        }
+
+        &:before {
+          transform: rotate(45deg);
+        }
+        &:after {
+          transform: rotate(-45deg);
+        }
+      }
+
+      &:hover {
+        span {
+          width: 0;
+          opacity: 1;
+
+          @include sm {
+            &:before {
+              transform: rotate(45deg);
+            }
+            &:after {
+              transform: rotate(-45deg);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Hamburger STYLES - END */
+}
+
+.components:hover {
+  border-radius: 15px 15px 0 0;
+  padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 895px) {
+  .nav {
+    &__list {
+      display: flex;
+      flex-direction: column;
+      &-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 0;
+        width: 100%;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+      &-item {
+        display: inline-flex;
+        &-drop {
+          top: 27px;
+          left: -25px;
+          border-radius: 15px;
+          height: 65vh;
+          overflow-y: auto;
+        }
+        ::-webkit-scrollbar-track {
+          background-color: $transparent;
+        }
+
+        ::-webkit-scrollbar {
+          background-color: $transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background-color: $scroll;
+          opacity: 0.5;
+        }
+      }
+      &-item:last-child {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+  .drop {
+    margin-right: 0;
+  }
+  .components {
+    height: 32.4px;
+  }
+}
+
+@media only screen and (max-width: 465px) {
+  .nav__list-container {
+    &-name {
+      font-size: 25px;
+    }
+    &-ico {
+      font-size: 25px;
+    }
+  }
+}

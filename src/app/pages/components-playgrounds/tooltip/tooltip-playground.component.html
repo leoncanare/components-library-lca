@@ -1,0 +1,28 @@
+<app-playground-pannel
+  [playgroudType]="'tooltip'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (tooltipTitleOut)="tooltipTitle = $event"
+  (tooltipTextOut)="tooltipText = $event"
+  (tooltipAlignOut)="tooltipAlign = $event"
+  (tooltipVerticalInvertOut)="tooltipVerticalInvert = $event"
+></app-playground-pannel>
+<div class="content">
+  @if(!loader) { 
+  <div class="container-component">
+    <app-tooltip
+      [palete]="palete"
+      [titleTooltip]="tooltipTitle ? tooltipTitle : 'Tooltip Title'"
+      [textTooltip]="
+        tooltipText
+          ? tooltipText
+          : 'Officiis ipsum tempora accusamus voluptatem vitae quod odio iste debitis esse sed quisquam voluptatibus, animi doloremque odit atque nulla sit illo alias?'
+      "
+      [tooltipAlign]="tooltipAlign"
+      [invertVertical]="tooltipVerticalInvert"
+    ></app-tooltip>
+    <div></div>
+  </div>
+  }@else {
+  <app-spinner></app-spinner>
+  }
+</div>

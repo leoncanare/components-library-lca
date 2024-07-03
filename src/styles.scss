@@ -1,1 +1,65 @@
+@use '@angular/material' as mat;
+@use '../src/app/shared/scss/mat-palette' as *;
+@use './app/shared/scss/generic-variables' as *;
+
+@include mat.core();
+
+$components-library-lca-primary: mat.define-palette($md-principal );
+$components-library-lca-accent: mat.define-palette($md-accent, 800, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$components-library-lca-warn: mat.define-palette(mat.$red-palette );
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$components-library-lca-theme: mat.define-light-theme((
+  color: (
+    primary: $components-library-lca-primary,
+    accent: $components-library-lca-accent,
+    warn: $components-library-lca-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($components-library-lca-theme);
+
 /* You can add global styles to this file, and also import other style files */
+*{
+    margin: 0;
+    padding: 0;
+}
+html, body { height: 100%; }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.no-selectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: $background;
+	border-radius: 10px;
+  margin: 10px;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: $white;
+}
+
+::-webkit-scrollbar-thumb
+{
+  margin-top: 5px;
+	border-radius: 10px;
+	background-color: $secondary;
+}

@@ -1,0 +1,47 @@
+<app-playground-pannel
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (labelOut)="label = $event"
+  (disabledOut)="disabled = $event"
+  (widthOut)="width = $event"
+  (sizeOut)="size = $event"
+  (placeholderOut)="placeholder = $event"
+  (helperOut)="helper = $event"
+  (defaultValueOut)="defaultValue = $event"
+  (sizeAutoscrollOut)="sizeScroll = $event"
+  (allOptionOut)="refreshCmponent($event, 'allOption')"
+  (shortDropdownOut)="shortDropdown = $event"
+  (genderOut)="refreshCmponent($event, 'gender')"
+  (alphabeticalOut)="refreshCmponent($event, 'orderAlphabetical')"
+  (descriptionOut)="description = $event"
+  (descriptionFilterOut)="descriptionFilter = $event"
+  (predictiveTypeOut)="predictiveType = $event"
+  (optionsOut)="options = $event"
+></app-playground-pannel>
+<div class="content">
+  <div class="container-component">
+  @if(!loader) {
+      <app-select
+        [formControl]="animalSelector"  
+        [options]="options ? options : animals"
+        [palete]="palete"
+        [label]="label ? label : 'Label'"
+        [disabled]="disabled"
+        [width]="width"
+        [size]="size"
+        [placeholder]="placeholder"
+        [helper]="helper"
+        [defaultValue]="defaultValue"
+        [sizeAutoscroll]="sizeScroll"
+        [allOption]="allOption"
+        [shortDropdown]="shortDropdown"
+        [gender]="gender"
+        [alphabetical]="orderAlphabetical"
+        [description]="description"
+        [descriptionFilter]="descriptionFilter"
+        [predictiveType]="predictiveType"
+      ></app-select>
+    }@else {
+      <app-spinner></app-spinner>
+    }
+  </div>
+</div>

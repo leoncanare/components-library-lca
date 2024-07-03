@@ -1,0 +1,41 @@
+/** Color system */
+$white: #ffffff !default;
+$black: #000000 !default;
+$transparent: #00000000 !default;
+
+$principal: #01265e;
+$principal-sdw: 0 0 10px #00000046; 
+$principal-text: #18323d;
+$principal-hover: #356293;
+
+$secondary: #18323d77;
+$secondary-text: #f3f3f3;
+
+$background: #f5f5f5;
+
+$navbar: #e6ecf6;
+$navbar-active: #e6ecf687;
+$navbar-sdw: #00000046;
+$divisor-color: #2a4f6c;
+$scroll: #e6ecf6a0;
+
+$text-sdw: #b3b5b9;
+
+/** Filter system -> (Resource: https://codepen.io/sosuke/pen/Pjoqqp) */
+$white-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(23deg) brightness(103%) contrast(108%);
+$principal-filter: invert(13%) sepia(50%) saturate(582%) hue-rotate(152deg) brightness(97%) contrast(90%);
+
+/** Border radius system */
+$radius-xs: 0.2rem;
+$radius-s: 5px;
+$radius-sm: 0.5rem;
+$radius-m: 0.5rem;
+$radius-x: 0.5rem;
+
+/** Breakpoint system -> (See https://getbootstrap.com/docs/5.0/layout/breakpoints/ for reference) */
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;

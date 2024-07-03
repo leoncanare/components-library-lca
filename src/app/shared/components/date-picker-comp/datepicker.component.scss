@@ -1,0 +1,371 @@
+@use "../../scss/generic-variables" as *;
+@use "../../scss/fonts" as *;
+@use "../../scss/mixins" as *;
+
+:host {
+  color: var(--component_text);
+  display: inline-flex;
+  flex-direction: column;
+  font-family: "FiraCode-Regular";
+  font-size: 14px;
+  min-width: 100px;
+  margin-top: 10px;
+  position: relative;
+}
+
+:host:has(div):has(.lca-datepicker__field-unfold):has(
+    .lca-datepicker__field-standard
+  ) {
+  height: 48px;
+}
+
+:host:has(div):has(.lca-datepicker__field-unfold):has(
+    .lca-datepicker__field-small
+  ) {
+  height: 58px;
+}
+
+.lca-datepicker {
+  @mixin labelFloating($x: -3px, $y: -32px) {
+    padding: 0 2px;
+    transform: translate($x, $y) scale(0.9);
+    font-size: 14px;
+  }
+
+  &__label {
+    color: var(--component_principal);
+    left: 2px;
+    font-size: 16px;
+    padding: 0 8px;
+    position: absolute;
+    top: 15px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+
+    &-floating {
+      @include labelFloating;
+      color: var(--component_text);
+    }
+
+    &-invalid {
+      color: var(--component_error);
+    }
+
+    &-small {
+      top: 9px;
+    }
+
+    &-small:is(&-floating) {
+      @include labelFloating(-3px, -26px);
+    }
+  }
+
+  &__field {
+    align-items: center;
+    background-color: $white;
+    border: none;
+    box-sizing: border-box;
+    color: var(--component_text);
+    display: flex;
+    outline: solid 1px var(--component_border);
+    padding: 0 6px 0 10px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .controls {
+      display: flex;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .controls > input {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      height: 100%;
+      outline: none;
+      overflow: hidden;
+      padding: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+      height: auto;
+      // margin-bottom: auto;
+
+      /* Chrome, Safari, Edge, Opera */
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      appearance: none;
+      -moz-appearance: textfield;
+
+      &::placeholder {
+        color: var(--component_border);
+        font-family: "FiraCode-Regular";
+        font-size: 16px;
+      }
+      &:read-only {
+        cursor: default;
+      }
+    }
+
+    &:not(:focus-within, &-invalid):hover {
+      outline: 2px solid var(--component_principal);
+      .lca-datepicker__label {
+        font-weight: 700;
+      }
+    }
+
+    &:not(&-invalid):focus-within {
+      box-shadow: 0px 0px 6px 2px rgba(var(--component_principal), 0.5);
+      outline: 1px solid var(--component_principal);
+      .lca-datepicker__label {
+        color: var(--component_principal);
+        font-weight: 700;
+      }
+    }
+
+    &-standard {
+      border-radius: $radius-s;
+      min-height: 48px;
+    }
+
+    &-small {
+      border-radius: $radius-s;
+      min-height: 36px;
+    }
+
+    &-small {
+      &::focus-within + label:not(.lca-datepicker__label-invalid) {
+        color: var(--component_principal);
+      }
+    }
+
+    &-invalid {
+      outline: 1px solid var(--component_error);
+    }
+
+    &-disabled,
+    &-disabled + div {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &-unfold {
+      position: absolute;
+      z-index: 50;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0 6px 0 8px;
+    }
+  }
+
+  &__buttons {
+    display: inline-flex;
+
+    img {
+      padding: 6px;
+    }
+
+    app-button {
+      ::ng-deep .lca-button__small {
+        padding: 8px 10px;
+      }
+    }
+
+    &-small {
+      margin-top: -6px;
+    }
+
+    .clean-button {
+      margin-right: 6px;
+    }
+  }
+
+  &__calendar {
+    width: 100%;
+    margin-top: 8px;
+    scroll-behavior: smooth;
+    height: 250px;
+    text-align: center;
+    @include no-selectionable();
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+
+      &__button {
+        display: flex;
+        width: 20px;
+        cursor: pointer;
+        &:hover {
+          background: var(--component_principal);
+          border-radius: $radius-s;
+          img {
+            filter: $white-filter;
+          }
+        }
+      }
+
+      &__date {
+        display: flex;
+        cursor: pointer;
+        color: var(--component_shadow_contrast);
+        font-size: 16px;
+        font-weight: normal;
+        padding: 2px 10px;
+
+        &:hover {
+          background: var(--component_principal);
+          border-radius: $radius-s;
+          color: $white;
+        }
+      }
+    }
+
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 30px);
+      grid-column-gap: calc((100% - 7 * 30px) / 6);
+      height: 200px;
+
+      &__week {
+        width: 23px;
+        padding: 2px 2.5px 4px 3.5px;
+        font-size: 16px;
+        color: var(--component_grey_soft);
+        margin-bottom: 10px;
+      }
+
+      &__day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        font-family: Arial;
+        font-size: 18px;
+        color: var(--component_shadow_contrast);
+        padding: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--component_link);
+          border-radius: $radius-s;
+          padding: 4px;
+        }
+      }
+    }
+
+    .calendar-years {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(4, 48px);
+      column-gap: calc((100% - 4 * 48px) / 3);
+      row-gap: 5px;
+      margin-top: 15px;
+      height: 200px;
+
+      &__year {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial;
+        font-size: 16px;
+        height: 15px;
+        color: var(--component_shadow_contrast);
+        padding: 10px 6px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--component_link);
+          border-radius: $radius-s;
+        }
+      }
+    }
+
+    .calendar-months {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(4, 48px);
+      column-gap: calc((100% - 4 * 48px) / 3);
+      row-gap: 15px;
+      margin-top: 15px;
+      height: 200px;
+
+      &__month {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial;
+        font-size: 16px;
+        color: var(--component_shadow_contrast);
+        padding: 10px 3px;
+        text-align: center;
+        cursor: pointer;
+        height: 15px;
+
+        &:hover {
+          background-color: var(--component_link);
+          border-radius: $radius-s;
+        }
+      }
+    }
+  }
+}
+
+.calendar-active {
+  ::ng-deep .lca-button__icon-button {
+    background-color: var(--component_principal);
+    img {
+      filter: $white-filter !important;
+    }
+  }
+}
+
+.helper-container {
+  padding-left: 10px;
+
+  .helper {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: var(--component_text);
+    opacity: 0.8;
+  }
+
+  .helper-error {
+    display: inline-block;
+    color: var(--component_error);
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.color-error {
+  color: var(--component_error) !important;
+}

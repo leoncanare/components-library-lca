@@ -1,0 +1,106 @@
+@use '../../scss/generic-variables' as *;
+@use '../../scss/fonts' as *;
+
+:host {
+  color: var(--component_text);
+  display: flex;
+  align-items: center;
+  font-family: 'FiraCode-Regular';
+  font-size: 14px;
+
+  &:not(:active):hover {
+    .lca-toggle {
+      &__input:not(:disabled) ~ label:before {
+        background: var(--component_grey_soft_2);
+        border-radius: 50%;
+        content: '';
+        display: block;
+        height: 25px;
+        opacity: 0.6;
+        position: absolute;
+        width: 25px;
+      }
+
+      &__input:checked:not(:disabled) ~ label:before {
+        left: 28px;
+      }
+    }
+  }
+
+  &:active .lca-toggle__input:not(:disabled) ~ label:after {
+    box-shadow: -2px 2px 4px 0px rgba(0, 0, 0, 0.4), inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.lca-toggle {
+  &__label {
+    cursor: pointer;
+    margin-right: 14px;
+  }
+
+  &__input {
+    display: none;
+
+    &:checked ~ label {
+      background: var(--component_shadow_contrast);
+
+      &:after {
+        left: 29px;
+      }
+    }
+
+    &:disabled ~ label {
+      opacity: 0.5;
+    }
+  }
+
+  &__disabled,
+  &__input:disabled ~ label {
+    pointer-events: none;
+  }
+
+  &__control {
+    background: var(--component_grey_soft);
+    border-radius: 100px;
+    cursor: pointer;
+    display: block;
+    height: 25px;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 53px;
+
+    &:after {
+      background: $white;
+      border: outset 1px rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      box-shadow: 0px 3px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      content: '';
+      display: block;
+      height: 23px;
+      left: 1px;
+      top: 1px;
+      position: absolute;
+      width: 23px;
+    }
+
+    img {
+      position: absolute;
+      z-index: 1;
+      width: 15px;
+      user-select: none; 
+    }
+
+    .deactive {
+      top: 4.65px;
+      left: 4.5px;
+      filter: var(--component_grey_soft_filter);
+    }
+
+    .active {
+      top: 4.65px;
+      left: 33.5px;
+      filter: var(--component_shadow_contrast_filter);
+    }
+  }
+}

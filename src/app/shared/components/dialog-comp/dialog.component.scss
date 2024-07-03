@@ -1,0 +1,176 @@
+@use '../../scss/generic-variables' as *;
+@use '../../scss/fonts' as *;
+@use '../../scss/mixins' as *;
+
+p {
+  margin: 0;
+}
+
+:host {
+  position: fixed;
+  z-index: 2001;
+}
+
+.modal-close {
+  opacity: 0;
+}
+
+.modal-open {
+  opacity: 1;
+}
+
+.modal-transition {
+  transition: opacity 200ms ease-in-out;
+}
+
+.modal-content {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal {
+    background-color: $white;
+    border-radius: $radius-s;
+    padding: 40px;
+    position: relative;
+    max-height: 80vh;
+    max-width: 80%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 7px -2px var(--component_grey);
+
+    @media screen and (max-width: 576px) {
+      max-height: 100vh;
+    }
+
+    &__close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $radius-s;
+      img {
+        width: 20px;
+        filter: var(--component_principal_filter);
+      }
+    }
+
+    &__close:hover {
+      background-color: var(--component_principal_hover);
+      img {
+        filter: $white-filter;
+      }
+    }
+
+    &__title {
+      font-family: 'FiraCode-Medium';
+      font-size: 24px;
+      line-height: 1.17;
+      text-align: center;
+      color: var(--component_grey);
+      margin-bottom: 20px;
+
+      @media screen and (max-width: 576px) {
+        margin-top: 20px;
+      }
+    }
+
+    &__img {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      padding-top: 5px;
+      img {
+        width: 180px;
+      }
+    }
+
+    &__text {
+      font-family: 'FiraCode-Regular';
+      text-align: center;
+      color: var(--component_grey);
+      margin: 0;
+      line-height: 20px;
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+
+      app-button {
+        margin: auto;
+      }
+      @media (max-width: $breakpoint-sm) {
+        @include columnButtons();
+      }
+    }
+
+    .small-buttons {
+      @include columnButtons();
+    }
+
+    .ng-content {
+      background-color: $white;
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: calc(80vh - 80px);
+      margin-right: -20px;
+      padding-right: 10px;
+
+      @media screen and (max-width: 576px) {
+        max-height: calc(100vh - 60px);
+        margin-right: -10px;
+        padding-right: 5px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 10px;
+        height: 20px;
+        &-thumb {
+          border-radius: 3px;
+          background: var(--component_scrollbar);
+        }
+        &-track {
+          border-radius: 3px;
+          background: $white;
+        }
+      }
+    }
+  }
+  .modal-small {
+    width: 300px;
+    @media screen and (max-width: 300px) {
+      width: 100% !important;
+    }
+  }
+  .modal-standard {
+    width: 460px;
+    @media screen and (max-width: 460px) {
+      width: 100% !important;
+    }
+  }
+  .modal-large {
+    width: 620px;
+    @media screen and (max-width: 620px) {
+      width: 100% !important;
+    }
+  }
+  .modal-extra-large {
+    width: 940px;
+    @media screen and (max-width: 945px) {
+      width: 100% !important;
+    }
+  }
+}

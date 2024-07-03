@@ -1,0 +1,151 @@
+<!-- 'clickedOutside' It is a directive that we subscribe to to know if at any time a click is made outside the selector and close the dropdown. -->
+<div
+  appClickOutside
+  (clickedOutside)="clickOutside()"
+  [class]="'lca-select__field lca-select__field-' + size"
+  [ngClass]="{
+    'lca-select__field-disabled': disabled,
+    'lca-select__field-unfold': unfold,
+    'lca-select__field-invalid': control.valid === false && control.touched
+  }"
+>
+  <div class="controls">
+    <div>{{ selectValue }}</div>
+    <input
+      #selector
+      [id]="name"
+      [ngModel]="value | valueFormater"
+      [disabled]="disabled"
+      [placeholder]="placeholderSelector()"
+      [attr.focus]="fieldOnFocus"
+      [readonly]="predictiveType === 'none'"
+      spellcheck="false"
+      autocomplete="off"
+      (input)="handleSelector(selector.value)"
+      (focus)="handleFocus()"
+      (blur)="handleBlur($event)"
+      (keyup)="filterOptions($event, selector.value)"
+    />
+    @if(label) {
+    <label
+      *ngIf="label"
+      [for]="name"
+      [class]="'lca-select__label lca-select__label-' + size"
+      [ngClass]="{
+        'lca-select__label-floating': fieldOnFocus || !!value,
+        'lca-select__label-invalid': control.valid === false && control.touched
+      }"
+    >
+      {{ label }}
+    </label>
+    }
+    <div
+      class="lca-select__buttons"
+      [ngClass]="{
+        'lca-select__buttons-small': size === 'small'
+      }"
+    >
+    <app-button
+        *ngIf="!!value && fieldOnFocus && predictiveType !== 'none' && unfold"
+        width="32px"
+        class="clean-button"
+        [palete]="palete"
+        variant="icon-button"
+        [inputButton]="true"
+        size="small"
+        icon="../../../../assets/icons/close-fill.svg"
+        (click)="handleClear()"
+      ></app-button>
+      <app-button
+        [ngClass]="{ 'dropdown-active': unfold }"
+        [palete]="palete"
+        variant="icon-button"
+        [inputButton]="true"
+        size="small"
+        icon="../../../../assets/icons/unfold.svg"
+        (click)="handleUnfold()"
+      ></app-button>
+    </div>
+  </div>
+  @if(unfold){
+  <div
+    id="dropdown"
+    class="lca-select__dropdown"
+    [ngClass]="{
+      'lca-select__dropdown-auto': displayOptions.length < dropdownSize,
+      'lca-select__dropdown-small': size === 'small',
+      'lca-select__dropdown-short': shortDropdown && !description,
+      'lca-select__dropdown-description': description && !shortDropdown,
+      'lca-select__dropdown-description-short': description && shortDropdown
+    }"
+  >
+    <div *ngIf="displayOptions?.length !== 0">
+      @for (option of displayOptions; track $index) {
+      <div class="options" [id]="option.checked ? 'checked' : 'noChecked'">
+        <div class="divider-option"></div>
+        <label
+          class="option"
+          [ngClass]="{
+            'option-disabled': option.disabled,
+            'option-selected': option.checked
+          }"
+        >
+          <div class="label">
+            {{ option.label }}
+          </div>
+          <input
+            type="checkbox"
+            [checked]="option.checked"
+            [disabled]="option.disabled"
+            (change)="selectOption($event, option)"
+          />
+          <span class="checker">
+            @if(option.checked){
+            <i class="ri-checkbox-circle-line"></i>
+            }@else {
+            <i class="ri-checkbox-blank-circle-line"></i>
+            }
+          </span>
+          @if (description && option.value !== 'todos' && option.value !==
+          'todas') {
+          <div class="description">
+            <p>{{ option.description }}</p>
+          </div>
+          }
+        </label>
+      </div>
+      }
+    </div>
+    @if (displayOptions.length === 0) {
+    <div class="lca-select__dropdown-no-results">
+      <div class="divider-option"></div>
+      <p>No hay resultados coincidentes.</p>
+    </div>
+    }
+  </div>
+  }
+</div>
+<div class="lca-select__helpers">
+  @if (helper && (control.valid !== false || !control.touched)) {
+  <span>
+    {{ helper }}
+  </span>
+  } @if (control.valid === false && control.touched) {
+  <span class="lca-select__helpers-error">
+    <ng-container
+      [ngTemplateOutlet]="!!control.errors ? customError : helperError"
+    ></ng-container>
+    <ng-template #helperError>
+      <span>{{ helper }}</span>
+    </ng-template>
+    <ng-template #customError>
+      <span> {{  control.errors.message }}</span>
+      @for (error of control.errors | keyvalue; track $index) {
+      <span>
+        {{ errorMessages[error.key] }}
+      </span>
+      }
+    </ng-template>
+  </span>
+  }
+</div>

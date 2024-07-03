@@ -1,0 +1,41 @@
+@use '../../../shared/scss/generic-variables' as *;
+@use '../../../shared/scss/mixins' as *;
+@use '../../../shared/scss/components/playgrounds.component' as *;
+
+#ng-dialog {
+    .ng-dialog {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        &__title {
+            font-family: 'FiraCode-Medium';
+            font-size: 24px;
+            text-align: center;
+            color: var(--component_grey);
+            line-height: 1.17;
+            margin-bottom: 20px;
+        }
+        &__image {
+            max-width: 250px;
+            margin-bottom: 20px;
+        }
+        &__text {
+            font-family: 'FiraCode-Regular';
+            height: 300px;
+            overflow: auto;
+        }
+        &__buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0 10px;
+            width: 100%;
+            app-button {
+                margin: 0 10px;
+            }
+            @media (max-width: $breakpoint-sm) {
+                @include columnButtons();
+            }
+        }
+    }
+}

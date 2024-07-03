@@ -1,0 +1,135 @@
+
+<nav class="nav no-selectable">
+    <ul class="nav__list">
+        <div class="nav__list-container">
+            <div class="logo">
+                <a class="nav__list-container-name" routerLink="">leoncanare</a>
+                <a class="nav__list-container-ico" href="https://github.com/leoncanare" target="_blank" ><i class="ri-github-fill"></i></a>
+            </div>
+            <div>
+                @if (mobileMenu) {
+                    <i 
+                        class="nav__hamburger" 
+                        [ngClass]="{'hamburger-closed': openMenu }" 
+                        (click)="handleOpenMenu()">
+                        <span></span>
+                    </i>
+                }
+            </div>
+        </div>
+        @if (openMenu) {
+            <li class="nav__list-item home" routerLink=""  routerLinkActive="active" (click)="handleOpenMenu()">
+                Home<i class="ri-home-2-fill"></i>
+            </li>
+            <li class="nav__list-item drop components">
+                Components<i class="ri-menu-line">
+            </i>
+                <ul class="nav__list-item-drop">
+                    <li 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'select'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/select">
+                        <a class="dropdown-item">
+                            <i class="ri-dropdown-list"></i>select
+                        </a>
+                    </li>
+                    <hr>
+                    <li 
+                        class="list-item" 
+                        [ngClass]="{'active' : activeNav === 'checkbox'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/checkbox">
+                        <a class="dropdown-item">
+                            <i class="ri-checkbox-line"></i>Checkbox
+                        </a>
+                    </li>
+                    <hr>
+                    <li 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'radio'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/radio">
+                        <a class="dropdown-item">
+                            <i class="ri-list-radio"></i>Radio
+                        </a>
+                    </li>
+                    <hr>
+                    <li id="" 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'button'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/button">
+                        <a class="dropdown-item" >
+                            <img src="../../../assets/icons/components-types/button.png" alt="">Button
+                        </a>
+                    </li>
+                    <hr>
+                    <li id="" 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'toggle'}" 
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/toggle">
+                        <a class="dropdown-item" >
+                            <i class="ri-toggle-line"></i>Toggle
+                        </a>
+                    </li>
+                    <hr>
+                    <li id="" 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'dialog'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/dialog">
+                        <a class="dropdown-item" >
+                            <i class="ri-message-3-line"></i>Dialog
+                        </a>
+                    </li>
+                    <hr>
+                    <li id="" 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'tooltip'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/tooltip">
+                        <a class="dropdown-item" >
+                            <i class="ri-information-2-line"></i>Tooltip
+                        </a>
+                    </li>
+                    <hr>
+                    <li id="" 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'input'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/input">
+                        <a class="dropdown-item" >
+                            <i class="ri-input-field"></i>Input
+                        </a>
+                    </li>
+                    <hr>
+                    <li id="" 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'textarea'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/textarea">
+                        <a class="dropdown-item" >
+                            <i class="ri-text-block"></i>Text area
+                        </a>
+                    </li>
+                    <hr>
+                    <li id="" 
+                        class="list-item"
+                        [ngClass]="{'active' : activeNav === 'datepicker'}"
+                        (click)="handleOpenMenu()"
+                        routerLink="playground/datepicker">
+                        <a class="dropdown-item" >
+                            <i class="ri-calendar-2-line"></i>Date picker
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav__list-item home" (click)="handleOpenMenu()" routerLink="form">
+                Form<i class="ri-survey-fill"></i>
+            </li>
+        }
+    </ul>
+</nav>
+

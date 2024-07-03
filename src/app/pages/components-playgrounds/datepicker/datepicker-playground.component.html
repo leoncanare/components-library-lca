@@ -1,0 +1,25 @@
+<app-playground-pannel
+  [playgroudType]="'datepicker'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (labelOut)="label = $event"
+  (disabledOut)="disabled = $event"
+  (widthOut)="width = $event"
+  (helperOut)="helper = $event"
+></app-playground-pannel>
+<div class="content">
+  @if(!loader) {
+  <div class="container-component">
+    <app-datepicker
+      [formControl]="testDatePicker"
+      [palete]="palete"
+      [label]="label ? label : 'Label'"
+      [width]="width"
+      [disabled]="disabled"
+      [helper]="helper"
+    ></app-datepicker>
+    <div></div>
+  </div>
+  }@else {
+  <app-spinner></app-spinner>
+  }
+</div>

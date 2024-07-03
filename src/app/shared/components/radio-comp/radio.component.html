@@ -1,0 +1,19 @@
+<label
+    *ngFor="let option of options; trackBy: optionByValue"
+    class="lca-radio__label"
+    [ngClass]="{ 'lca-radio__disabled': disabled || option.disabled, 'lca-radio__checked': option.checked }"
+    [for]="option.value"
+>
+    <span>{{ option.label }}</span>
+    <input
+    type="radio"
+    class="lca-radio__input"
+    [id]="option.value"
+    [name]="name"
+    [value]="option.value"
+    [checked]="option.checked"
+    [disabled]="disabled || option.disabled"
+    (click)="handleChange(option.value)"
+    />
+    <span class="lca-radio__control"></span>
+</label>

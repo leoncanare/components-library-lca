@@ -1,0 +1,31 @@
+<label
+  *ngIf="label"
+  [for]="controlId"
+  class="lca-toggle__label"
+  [ngClass]="{ 'lca-toggle__disabled': disabled }"
+  [ngStyle]="{
+    color: labelColor === 'black' ? 'inherit' : 'white',
+    fontFamily: labelWeight === 'normal' ? 'inherit' : 'SenticoSansDT-Medium'
+  }"
+>
+  {{ label }}
+</label>
+<input
+  #toggle
+  type="checkbox"
+  [id]="controlId"
+  class="lca-toggle__input"
+  [checked]="checked"
+  [disabled]="disabled"
+  (change)="handleChange(toggle.checked)"
+/>
+<label [for]="controlId" class="lca-toggle__control">
+  @if(iconActivated || iconDeactivated) {
+    @if(toggle.checked){
+      <img class="active" [src]="iconActivated" alt="">
+    }
+    @else {
+      <img class="deactive" [src]="iconDeactivated ? iconDeactivated : iconActivated" alt="">
+    }
+  }
+</label>

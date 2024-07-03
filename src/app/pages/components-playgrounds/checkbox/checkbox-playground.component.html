@@ -1,0 +1,24 @@
+<app-playground-pannel
+  [playgroudType]="'checkbox'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (labelOut)="label = $event"
+  (disabledOut)="disabled = $event"
+  (checkedOut)="checked = $event"
+  (secondaryCheckboxOut)="secondary = $event"
+></app-playground-pannel>
+<div class="content">
+  @if(!loader) {
+  <div class="container-component" [ngClass]="{ 'darck-back': secondary }">
+    <app-checkbox
+      [palete]="palete"
+      [label]="label"
+      [disabled]="disabled"
+      [checked]="checked"
+      [secondary]="secondary"
+    ></app-checkbox>
+    <div></div>
+  </div>
+  }@else {
+  <app-spinner></app-spinner>
+  }
+</div>

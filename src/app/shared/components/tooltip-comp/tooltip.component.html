@@ -1,0 +1,43 @@
+<div class="lca-tooltip">
+  <div
+    *ngIf="!showTablet || !enableTooltipDialog"
+    class="lca-tooltip__desktop"
+    [ngClass]="{ 'lca-tooltip__desktop__vertical-invert': invertVertical }"
+  >
+    <div
+      class="lca-tooltip__desktop__box"
+      [class]="'lca-tooltip__desktop__box-' + tooltipAlign"
+      [ngStyle]="{
+        visibility: showTooltip ? 'visible' : 'hidden'
+      }"
+    >
+      <p *ngIf="titleTooltip" class="title" [innerHTML]="titleTooltip"></p>
+      <p [innerHTML]="textTooltip"></p>
+    </div>
+    <div
+      class="lca-tooltip__desktop__triangle"
+      [ngStyle]="{ visibility: showTooltip ? 'visible' : 'hidden' }"
+    ></div>
+    <div class="icon" (mouseenter)="hoverIcon(true)" (mouseleave)="hoverIcon(false)">
+      <img src="../../../../assets/icons/info.svg" alt="" />
+    </div>
+  </div>
+  <div *ngIf="showTablet && enableTooltipDialog">
+    <div class="icon" (click)="openModalTooltip(true)">
+      <img src="../../../../assets/icons/info.svg" alt="" />
+    </div>
+    <app-dialog
+      [palete]="palete"
+      size="small"
+      [showDialog]="showDialogTooltip"
+      [ngContentActive]="true"
+      [tooltipDialog]="true"
+      (closeDialog)="openModalTooltip(false)"
+    >
+      <div class="container__modal">
+        <p *ngIf="titleTooltip" class="title__modal" [innerHTML]="titleTooltip"></p>
+        <p class="text" [innerHTML]="textTooltip"></p>
+      </div>
+    </app-dialog>
+  </div>
+</div>

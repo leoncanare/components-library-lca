@@ -1,0 +1,50 @@
+<app-playground-pannel
+  [playgroudType]="'input'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (labelOut)="label = $event"
+  (disabledOut)="disabled = $event"
+  (widthOut)="width = $event"
+  (sizeOut)="size = $event"
+  (placeholderOut)="placeholder = $event"
+  (helperOut)="helper = $event"
+  (defaultValueOut)="defaultValue = $event"
+  (maxLengthOut)="maxLength = $event"
+  (tooltipTitleOut)="tooltipTitle = $event"
+  (tooltipTextOut)="tooltipText = $event"
+  (tooltipAlignOut)="tooltipAlign = $event"
+  (tooltipVerticalInvertOut)="tooltipVerticalInvert = $event"
+  (tooltipDialogOut)=" tooltipDialog = $event"
+  (prefixOut)=" prefix = $event"
+  (suffixOut)=" suffix = $event"
+  (inputTypeOut)="refreshCmponent($event, 'inputType')"
+  (customBehaviorOut)="refreshCmponent($event, 'customBehavior')"
+></app-playground-pannel>
+<div class="content">
+  <div class="container-component">
+    @if(!loader) {
+    <app-input
+      [formControl]="testInput"
+      [palete]="palete"
+      [label]="label ? label : 'Label'"
+      [width]="width"
+      [size]="size"
+      [disabled]="disabled"
+      [placeholder]="placeholder"
+      [helper]="helper"
+      [defaultValue]="defaultValue"
+      [maxLength]="maxLength"
+      [tooltipTitle]="tooltipTitle"
+      [tooltipText]="tooltipText"
+      [tooltipAlign]="tooltipAlign"
+      [tooltipVertical]="tooltipVerticalInvert"
+      [tooltipDialog]="tooltipDialog"
+      [type]="inputType"
+      [prefix]="prefix"
+      [suffix]="suffix"
+      [customBehaviour]="customBehavior"
+    ></app-input>
+  }@else {
+    <app-spinner></app-spinner>
+  }
+  </div>
+</div>

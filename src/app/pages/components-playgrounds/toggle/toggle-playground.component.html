@@ -1,0 +1,25 @@
+<app-playground-pannel
+  [playgroudType]="'toggle'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (labelOut)="label = $event"
+  (disabledOut)="disabled = $event"
+  (toggleIconsOut)="handleControlIcons($event, 'all')"
+  (toggleIconsActiveOut)="handleControlIcons($event, 'active')"
+  (toggleIconsDeactiveOut)="handleControlIcons($event, 'deactive')"
+></app-playground-pannel>
+<div class="content">
+  @if(!loader) { 
+  <div class="container-component">
+    <app-toggle
+      [palete]="palete"
+      [label]="label"
+      [disabled]="disabled"
+      [iconActivated]="iconActive"
+      [iconDeactivated]="iconDeactive"
+    ></app-toggle>
+    <div></div>
+  </div>
+  }@else {
+  <app-spinner></app-spinner>
+  }
+</div>

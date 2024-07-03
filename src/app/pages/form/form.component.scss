@@ -1,0 +1,146 @@
+@use '../../shared/scss/components/playgrounds.component' as *;
+@use '../../shared/scss/generic-variables' as *;
+@use '../../shared/scss/mixins' as *;
+
+.container {
+    display: flex;
+    width: 100%;
+    background-image: url(../../../assets/images/background.jpg);
+    justify-content: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .form {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10vh;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 50px;
+        width: 500px;
+        background: $white;
+        padding: 20px 0;
+        border-radius: 5px;
+        box-shadow: 0 1px 4px -2px $principal-text;
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            font-family: 'FiraCode-Regular';
+            color: $principal-text;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .title-input {
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-family: 'FiraCode-Regular';
+            color: $principal-text;
+        }
+        .categories {
+            display: flex;
+            app-checkbox {
+                margin-bottom: 10px;
+            }
+            .categories-group:first-child {
+                margin-right: 20px;
+            }
+        }
+
+        app-toggle {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+#ng-dialog {
+    .ng-dialog {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        font-family: 'FiraCode-Regular';
+        color: var(--component_grey);
+
+        &__title {
+            font-family: 'FiraCode-Medium';
+            font-size: 24px;
+            text-align: center;
+            line-height: 1.17;
+        }
+        &__subtitle {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.17;
+            margin-bottom: 20px;
+        }
+        &__image {
+            max-width: 200px;
+        }
+        &__content {
+            max-height: 300px;
+            overflow-y: auto;
+            width: 100%;
+
+            &-data {
+                display: flex;
+                justify-content: space-between;
+                text-transform: capitalize;
+                margin-right: 10px;
+
+                .data-type {
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+
+                .tags {
+                    display: ruby;
+                    gap: 10px;
+                }
+
+                .tag {
+                    color: $white;
+                    background-color: $principal-text;
+                    border-radius: $radius-s;
+                    padding: 5px;
+                    margin-right: 5px;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+        &__buttons {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0 10px;
+            width: 100%;
+            app-button {
+                margin: 0 10px;
+            }
+            @media (max-width: $breakpoint-sm) {
+                @include columnButtons();
+            }
+        }
+    }
+
+    .column-data {
+        display: flex;
+        flex-direction: column;
+        .data-type {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .data-filed {
+            margin-bottom: 10px;
+            margin-left: 15px;
+            margin: 0 0 10px 15px;
+        }
+    }
+}

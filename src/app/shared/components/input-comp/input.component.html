@@ -1,0 +1,169 @@
+<div
+  appClickOutside
+  (clickedOutside)="clickOutside()"
+  #fieldContainer
+  [class]="'lca-input__field lca-input__field-' + size"
+  [ngClass]="{
+    'lca-input__field-disabled': disabled,
+    'lca-input__field-clear': variant === 'clear',
+    'lca-input__field-invalid': control.valid === false && control.touched
+  }"
+>
+  <span *ngIf="prefix && (!!value || fieldOnFocus)" class="lca-input__prefix">
+    {{ prefix }}
+  </span>
+  <input
+    #input
+    *ngIf="!multiline; else inputMultiline"
+    [id]="name"
+    [name]="name"
+    [ngModel]="value | iban: control:!showIBAN && customBehaviour === 'IBAN'"
+    [type]="showPassword ? 'text' : type"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [attr.maxlength]="maxLength"
+    spellcheck="false"
+    (input)="handleInput(input.value)"
+    (focus)="handleFocus()"
+    (blur)="handleBlur($event)"
+    (keyup)="handleKeyUp(input.value)"
+  />
+  <ng-template #inputMultiline>
+    <textarea
+      #textarea
+      class="lca-input__field-multiline"
+      [placeholder]="placeholder"
+      [id]="name"
+      [name]="name"
+      [ngModel]="value"
+      [disabled]="disabled"
+      [attr.maxlength]="maxLength"
+      spellcheck="false"
+      (input)="handleInput(textarea.value)"
+      (focus)="handleFocus()"
+      (blur)="handleBlur($event)"
+    ></textarea>
+  </ng-template>
+  <label
+    *ngIf="label"
+    [for]="name"
+    [class]="'lca-input__label lca-input__label-' + size"
+    [ngClass]="{
+      'lca-input__label-floating': fieldOnFocus || !!value || variant === 'clear',
+      'lca-input__label-clear': variant === 'clear',
+      'lca-input__label-invalid': control.valid === false && control.touched
+    }"
+  >
+    {{ label }}
+  </label>
+  <span *ngIf="suffix && (!!value || fieldOnFocus)" class="lca-input__suffix">
+    {{ suffix }}
+  </span>
+  <div
+    class="lca-input__buttons"
+    [ngClass]="{
+      'clear-buttons': variant === 'clear'
+    }"
+  >
+    <app-button
+      *ngIf="fieldOnFocus && !!value"
+      class="clean-button"
+      [palete]="palete"
+      [ngClass]="{
+        'clean-button-margin': type === 'password'
+      }"
+      variant="icon-button"
+      [inputButton]="true"
+      size="small"
+      icon="../../../../assets/icons/close.svg"
+      (click)="handleClear()"
+    ></app-button>
+    <app-button
+      *ngIf="
+        ((showPassword && type === 'password') ||
+          (showIBAN && customBehaviour === 'IBAN')) &&
+        !!value
+      "
+      class="eye-button"
+      [palete]="palete"
+      variant="icon-button"
+      [inputButton]="true"
+      size="small"
+      icon="../../../../assets/icons/eye-close-line.svg"
+      (click)="handleShow()"
+    ></app-button>
+    <app-button
+      *ngIf="
+        ((!showPassword && type === 'password') ||
+          (!showIBAN && customBehaviour === 'IBAN')) &&
+        !!value
+      "
+      class="eye-button"
+      [palete]="palete"
+      variant="icon-button"
+      [inputButton]="true"
+      size="small"
+      icon="../../../../assets/icons/eye-line.svg"
+      (click)="handleShow()"
+    ></app-button>
+    <app-tooltip
+      *ngIf="(tooltipText && value === '') || (tooltipText && tooltipPermanent)"
+      [palete]="palete"
+      [titleTooltip]="tooltipTitle"
+      [textTooltip]="tooltipText"
+      [tooltipAlign]="tooltipAlign"
+      [invertVertical]="tooltipVertical"
+      [enableTooltipDialog]="tooltipDialog"
+    >
+    </app-tooltip>
+  </div>
+</div>
+<div
+  class="lca-input__helpers"
+  [ngClass]="{
+    'lca-input__helpers-clear': variant === 'clear'
+  }"
+>
+  <span
+    *ngIf="
+      type === 'password' &&
+      customBehaviour === 'password' &&
+      (!(control?.errors?.required && control.valid === false) || !control.touched)
+    "
+    [ngClass]="{
+      'lca-input__helpers-error': !control.valid && control.touched
+    }"
+  >
+    <span [ngClass]="{ 'lca-input__helpers-match': checkLength }">8 characters</span>
+    <span [ngClass]="{ 'lca-input__helpers-match': checkOneMin }">, minuscule</span>
+    <span [ngClass]="{ 'lca-input__helpers-match': checkOneCap }">, capital</span>
+    <span [ngClass]="{ 'lca-input__helpers-match': checkOneDigit }"> and number.</span>
+  </span>
+  <span
+    class="helper-text"
+    *ngIf="helper && (control.valid !== false || !control.touched)"
+  >
+    {{ helper }}
+  </span>
+  <span
+    class="helper-text"
+    *ngIf="control.valid === false && control.touched"
+    class="lca-input__helpers-error"
+  >
+    <ng-container
+      [ngTemplateOutlet]="!!control.errors ? customError : helperError"
+    ></ng-container>
+    <ng-template #helperError>
+      <span>{{ helper }}</span>
+    </ng-template>
+    <ng-template #customError>
+      <span> {{  control.errors.message }}</span>
+      @for (error of control.errors | keyvalue; track $index) {
+      <span>
+        {{ errorMessages[error.key] }}
+      </span>
+      }
+    </ng-template>
+  </span>
+  <span *ngIf="maxLength !== 65"> {{ value.length || 0 }}/{{ maxLength }} </span>
+</div>

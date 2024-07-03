@@ -1,0 +1,55 @@
+@use '../../scss/generic-variables' as *;
+@use '../../scss/components/radio-checkbox' as *;
+
+:host {
+  @include host;
+}
+
+.lca-checkbox {
+  @include input-item;
+
+  &__control {
+    border-radius: 3px;
+
+    &:after {
+      left: 2px;
+      position: absolute;
+      top: 1px;
+    }
+  }
+
+  &__input {
+    &:checked ~ span {
+      background-color: var(--component_shadow_contrast);
+      content: url("../../../../assets/icons/check-line-white.svg");
+      
+      svg {
+        filter: var(--component_active_filter);
+      }
+    }
+
+    &:not(:active, :disabled):hover ~ span {
+      border: 2px solid var(--component_shadow_contrast);
+
+      &:after {
+        border-color: var(--component_principal);
+        left: 1.5px;
+        top: 0.5px;
+      }
+    }
+  }
+  &__secondary {
+    span {
+      color: $white;
+    }
+    .lca-checkbox__control {
+      border: 1px solid $white;
+      background-color: $white;
+    }
+    .lca-checkbox__input {
+      &:not(:active, :disabled):hover ~ span {
+        border: 1.5px solid $white;
+      }
+    }
+  }
+}

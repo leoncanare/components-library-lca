@@ -1,0 +1,490 @@
+<div class="pg">
+  <div
+    class="pg-content"
+    [ngClass]="
+      openPlayground && (playgroudType === 'checkbox' || playgroudType === 'toggle' || playgroudType === 'tooltip' || playgroudType === 'datepicker' || playgroudType === 'radio' )
+        ? 'growing-small'
+        : openPlayground && (playgroudType !== 'checkbox' && playgroudType !== 'toggle' && playgroudType !== 'tooltip' && playgroudType !== 'datepicker' && playgroudType !== 'radio')
+        ? 'growing'
+        : 'decrese'
+    "
+  >
+    <section>
+      <mat-form-field>
+        <mat-label>Palete</mat-label>
+        <mat-select
+          id="paleteSelector"
+          [class]="palete"
+          [(ngModel)]="palete"
+          (ngModelChange)="hadleChange($event, 'palete')"
+        >
+          <mat-option id="paleteOption" class="option-LCA_PALETE" [value]="'LCA_PALETE'">PRINCIPAL</mat-option>
+          <mat-option id="paleteOption" class="option-GREEN_PALETE" [value]="'GREEN_PALETE'">GREEN</mat-option>
+          <mat-option id="paleteOption" class="option-PURPLE_PALETE" [value]="'PURPLE_PALETE'">PURPLE</mat-option>
+        </mat-select>
+      </mat-form-field>
+      @if(playgroudType !== 'dialog' && playgroudType !== 'tooltip' && playgroudType !== 'radio') {
+      <mat-form-field>
+        <mat-label>Label</mat-label>
+        <input
+          matInput
+          #labelRef
+          [disabled]="buttonVariant === 'icon-button'"
+          (change)="hadleChange(labelRef.value, 'label')"
+        />
+      </mat-form-field>
+      <div class="toggle">
+        <span>Disable</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'disabled')"
+        >
+        </mat-slide-toggle>
+      </div>
+      }
+      @if(playgroudType === 'select' || playgroudType === 'button' || playgroudType === 'textarea'  || playgroudType === 'input' || playgroudType === 'datepicker') {
+        <mat-form-field>
+          <mat-label>Width</mat-label>
+          <input
+            matInput
+            #widthRef
+            placeholder="300px"
+            [disabled]="buttonVariant === 'icon-button'"
+            (change)="hadleChange(widthRef.value, 'width')"
+          />
+        </mat-form-field>
+      }
+      @if(playgroudType === 'select' || playgroudType === 'button' || playgroudType === 'dialog' || playgroudType === 'input') {
+      <div class="radio">
+        <span>Size:</span>
+        <mat-radio-group
+          value="standard"
+          (change)="hadleChange($event.value, 'size')"
+        >
+        <mat-radio-button value="small" [disabled]="buttonVariant === 'icon-button'"> Small </mat-radio-button>
+        <mat-radio-button value="standard"> Standard </mat-radio-button>
+        @if(playgroudType === 'dialog'){
+          <mat-radio-button value="large"> Large </mat-radio-button>
+          <mat-radio-button value="extra-large"> Extra Large </mat-radio-button>
+        }
+        </mat-radio-group>
+      </div>
+      } @if(playgroudType === 'select' || playgroudType === 'textarea' || playgroudType === 'input' || playgroudType === 'datepicker') {
+      <mat-form-field>
+        <mat-label>Placeholder</mat-label>
+        <input
+          matInput
+          #placeholderRef
+          (change)="hadleChange(placeholderRef.value, 'placeholder')"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Helper</mat-label>
+        <input
+          matInput
+          #helperRef
+          (change)="hadleChange(helperRef.value, 'helper')"
+        />
+      </mat-form-field>
+      @if(playgroudType !== 'datepicker'){
+      <mat-form-field>
+        <mat-label>Default Value</mat-label>
+        <input
+          matInput
+          #defaultValueRef
+          (change)="hadleChange(defaultValueRef.value, 'defaultValue')"
+        />
+      </mat-form-field>
+      }
+      } @if(playgroudType === 'select'){
+      <mat-form-field>
+        <mat-label>Options</mat-label>
+        <mat-select
+          [(ngModel)]="options"
+          (ngModelChange)="hadleChange($event, 'options')"
+        >
+          <mat-option [value]="animals">Animals</mat-option>
+          <mat-option [value]="fruits">Fruits</mat-option>
+          <mat-option [value]="clients">Clients</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Size Autoscroll</mat-label>
+        <input
+          type="number"
+          matInput
+          #sizeAutoscrollRef
+          (change)="hadleChange(sizeAutoscrollRef.value, 'sizeAutoscroll')"
+        />
+      </mat-form-field>
+      <div class="toggle">
+        <span>All Options</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'allOption')"
+        >
+        </mat-slide-toggle>
+      </div>
+      <div class="toggle">
+        <span>Short Dropdown</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'shortDropdown')"
+        >
+        </mat-slide-toggle>
+      </div>
+      <div class="radio">
+        <span>Gender:</span>
+        <mat-radio-group
+          value="m"
+          (change)="hadleChange($event.value, 'gender')"
+        >
+          <mat-radio-button value="f"> Female </mat-radio-button>
+          <mat-radio-button value="m"> Male </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="toggle">
+        <span>Order Alphabetical</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'orderAlphabetical')"
+        >
+        </mat-slide-toggle>
+      </div>
+      <div class="toggle">
+        <span>Description</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'description')"
+        >
+        </mat-slide-toggle>
+      </div>
+      <div class="toggle">
+        <span>Description Filter</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'descriptionFilter')"
+        >
+        </mat-slide-toggle>
+      </div>
+      <div class="radio">
+        <span>Predictive Type:</span>
+        <mat-radio-group
+          value="none"
+          (change)="hadleChange($event.value, 'predictiveType')"
+        >
+          <mat-radio-button value="contains"> Contains </mat-radio-button>
+          <mat-radio-button value="start"> Start </mat-radio-button>
+          <mat-radio-button value="none"> None </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      } @if(playgroudType === 'button'){
+      <div class="radio">
+        <span>Button Type:</span>
+        <mat-radio-group
+          value="primary"
+          (change)="hadleChange($event.value, 'buttonType')"
+        >
+          <mat-radio-button value="primary"> Primary </mat-radio-button>
+          <mat-radio-button value="secondary"> Secondary </mat-radio-button>
+          <mat-radio-button value="action-primary"> Action </mat-radio-button>
+          <mat-radio-button value="icon-button"> Only Icon </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="radio">
+        <span>Label Type:</span>
+        <mat-radio-group
+          value="uppercase"
+          [disabled]="buttonVariant === 'icon-button'"
+          (change)="hadleChange($event.value, 'textStyle')"
+        >
+          <mat-radio-button value="uppercase"> Uppercase </mat-radio-button>
+          <mat-radio-button value="capitalize"> Capitalize </mat-radio-button>
+          <mat-radio-button value="lowercase"> Lowercase </mat-radio-button>
+          <mat-radio-button value="none"> None </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field>
+        <mat-label>Icon</mat-label>
+        <input
+          type="url"
+          matInput
+          #labelRef
+          (change)="hadleChange(labelRef.value, 'icon')"
+        />
+      </mat-form-field>
+      } @if(playgroudType === 'checkbox'){
+      <div class="toggle">
+        <span>Checked</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'checked')"
+        >
+        </mat-slide-toggle>
+      </div>
+      <div class="toggle">
+        <span>Secondary</span>
+        <mat-slide-toggle
+          [checked]="false"
+          (change)="hadleChange($event.checked, 'secondary-checkbox')"
+        >
+        </mat-slide-toggle>
+      </div>
+      }@if(playgroudType === 'toggle'){
+        <div class="toggle">
+          <span>Icons</span>
+          <mat-slide-toggle
+            [checked]="false"
+            (change)="hadleChange($event.checked, 'toggle-icons')"
+          >
+          </mat-slide-toggle>
+        </div>
+        <mat-form-field>
+          <mat-label>Icon Active</mat-label>
+          <input
+            type="url"
+            matInput
+            #iconActiveRef
+            (change)="hadleChange(iconActiveRef.value, 'toggle-icon-active')"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Icon Deactive</mat-label>
+          <input
+            type="url"
+            matInput
+            #iconDeactiveRef
+            (change)="hadleChange(iconDeactiveRef.value, 'toggle-icon-deactive')"
+          />
+        </mat-form-field>
+        }
+        @if(playgroudType === 'dialog'){
+          <div class="toggle">
+            <span>Ng Dialog</span>
+            <mat-slide-toggle
+              [(ngModel)]="ngDialog"
+              [checked]="false"
+              (change)="hadleChange($event.checked, 'dialog-type')"
+            >
+            </mat-slide-toggle>
+          </div>
+          <mat-form-field>
+            <mat-label>Open Dialog Timer</mat-label>
+            <input
+              type="number"
+              matInput
+              #dialogTimerRef
+              (change)="hadleChange(dialogTimerRef.value, 'dialog-timer')"
+            />
+          </mat-form-field>
+          <div class="toggle">
+            <span>Background Block</span>
+            <mat-slide-toggle
+              [checked]="false"
+              (change)="hadleChange($event.checked, 'dialog-background-block')"
+            >
+            </mat-slide-toggle>
+          </div>
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input
+              matInput
+              [(ngModel)]="dialogTitle"
+              [disabled]="ngDialog"
+              #dialogTitleRef
+              (change)="hadleChange(dialogTitleRef.value, 'dialog-title')"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Image</mat-label>
+            <input
+              type="url"
+              matInput
+              [disabled]="ngDialog"
+              #imageDialogRef
+              (change)="hadleChange(imageDialogRef.value, 'dialog-image')"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Text</mat-label>
+            <input
+              matInput
+              [(ngModel)]="dialogText"
+              [disabled]="ngDialog"
+              #dialogTextRef
+              (change)="hadleChange(dialogTextRef.value, 'dialog-text')"
+            />
+          </mat-form-field>
+          <div class="toggle">
+            <span>Primary Button</span>
+            <mat-slide-toggle
+              [(ngModel)]="primaryBtn"
+              [disabled]="ngDialog"
+              [checked]="false"
+              (change)="hadleChange($event.checked, 'dialog-primary-btn')"
+            >
+            </mat-slide-toggle>
+          </div>
+          <mat-form-field>
+            <mat-label>Primary Label</mat-label>
+            <input
+              matInput
+              [(ngModel)]="primaryLabel"
+              [disabled]="!primaryBtn"
+              #primaryLabelRef
+              (change)="hadleChange(primaryLabelRef.value, 'primary-label')"
+            />
+          </mat-form-field>
+          <div class="toggle">
+            <span>Secondary Button</span>
+            <mat-slide-toggle
+              [(ngModel)]="secondaryBtn"
+              [disabled]="ngDialog"
+              [checked]="true"
+              (change)="hadleChange($event.checked, 'dialog-secondary-btn')"
+            >
+            </mat-slide-toggle>
+          </div>
+          <mat-form-field>
+            <mat-label>Secondary Label</mat-label>
+            <input
+              matInput
+              [(ngModel)]="secondaryLabel"
+              [disabled]="!secondaryBtn"
+              #secondaryLabelRef
+              (change)="hadleChange(secondaryLabelRef.value, 'secondary-label')"
+            />
+          </mat-form-field>
+        }
+        @if(playgroudType === 'tooltip' || playgroudType === 'input'){
+          <mat-form-field>
+            <mat-label>Tooltip Title</mat-label>
+            <input
+              matInput
+              #titleRef
+              (change)="hadleChange(titleRef.value, 'tooltip-title')"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tooltip Text</mat-label>
+            <input
+              matInput
+              #textRef
+              (change)="hadleChange(textRef.value, 'tooltip-text')"
+            />
+          </mat-form-field>
+          <div class="radio">
+            <span>Tooltip Align:</span>
+            <mat-radio-group
+              value="center"
+              (change)="hadleChange($event.value, 'tooltip-align')"
+            >
+              <mat-radio-button value="center"> Center </mat-radio-button>
+              <mat-radio-button value="left"> Left </mat-radio-button>
+              <mat-radio-button value="right"> Right </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="toggle">
+            <span>Tooltip Vertical Invert</span>
+            <mat-slide-toggle
+              [checked]="false"
+              (change)="hadleChange($event.checked, 'vertical-invert')"
+            >
+            </mat-slide-toggle>
+          </div>
+        }
+        @if(playgroudType === 'input'){
+          <div class="toggle">
+            <span>Tooltip Dialog</span>
+            <mat-slide-toggle
+              [checked]="false"
+              (change)="hadleChange($event.checked, 'input-tooltip-dialog')"
+            >
+            </mat-slide-toggle>
+          </div>
+          <div class="radio">
+            <span>Type:</span>
+            <mat-radio-group
+              [(ngModel)]="inputType"
+              (change)="hadleChange($event.value, 'input-type')"
+            >
+              <mat-radio-button value="text"> Text </mat-radio-button>
+              <mat-radio-button value="number"> Number </mat-radio-button>
+              <mat-radio-button value="password"> Password </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <mat-form-field>
+            <mat-label>Custom Behavior</mat-label>
+            <mat-select
+              [(ngModel)]="customBehavior"
+              [disabled]="inputType === 'number'"
+              (ngModelChange)="hadleChange($event, 'custom-behavior')"
+            >
+              <mat-option [value]="''">None</mat-option>
+              <mat-option [disabled]="inputType !== 'text'" [value]="'IBAN'">IBAN</mat-option>
+              <mat-option [disabled]="inputType !== 'password'" [value]="'password'">Password</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Prefix</mat-label>
+            <input
+              type="text"
+              matInput
+              #prefixRef
+              (change)="hadleChange(prefixRef.value, 'prefix')"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Suffix</mat-label>
+            <input
+              type="text"
+              matInput
+              #suffixRef
+              (change)="hadleChange(suffixRef.value, 'suffix')"
+            />
+          </mat-form-field>
+        }
+        @if(playgroudType === 'textarea'){
+          <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input
+              matInput
+              #heightRef
+              (change)="hadleChange(heightRef.value, 'height')"
+            />
+          </mat-form-field>
+          <div class="toggle">
+            <span>Counter</span>
+            <mat-slide-toggle
+              [checked]="false"
+              (change)="hadleChange($event.checked, 'counter')"
+            >
+            </mat-slide-toggle>
+          </div>
+        }
+        @if(playgroudType === 'textarea' || playgroudType === 'input'){
+          <mat-form-field>
+            <mat-label>Max Length</mat-label>
+            <input
+              type="number"
+              matInput
+              #maxLengthRef
+              (change)="hadleChange(maxLengthRef.value, 'max-length')"
+            />
+          </mat-form-field>
+        }
+      <div class="spacer"></div>
+    </section>
+  </div>
+  <div class="pg-btn" (click)="handleOpenPlayground()">
+    @if (!openPlayground) {
+    <p class="pg-btn__title">
+      Open Playground <img src="../../../assets/icons/arrow-down-s-line.svg" />
+    </p>
+    } @else {
+    <p class="pg-btn__title">
+      Close Playground <img src="../../../assets/icons/arrow-up-s-line.svg" />
+    </p>
+    }
+  </div>
+</div>

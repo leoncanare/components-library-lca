@@ -1,0 +1,104 @@
+@use '../../scss/generic-variables' as *;
+@use '../../scss/fonts' as *;
+
+:host {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: 'FiraCode-Regular';
+  font-size: 10px;
+  color: var(--component_grey);
+}
+
+p {
+  margin: 0;
+}
+
+@mixin centerItemXY {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  @include centerItemXY();
+  width: 25px;
+  height: 25px;
+
+  img {
+    width: 20px;
+    height: 20px;
+    filter: var(--component_principal_filter);
+  }
+
+  &:hover {
+    background-color: var(--component_hover);
+    border-radius: 12px;
+    cursor: pointer;
+  }
+}
+
+.lca-tooltip {
+  &__desktop {
+    @include centerItemXY();
+    position: relative;
+
+    &__box {
+      height: fit-content;
+      background-color: $white;
+      padding: 15px;
+      border-radius: $radius-s;
+      position: absolute;
+      bottom: 28px;
+      text-align: start;
+      box-shadow: 0 1px 7px -2px var(--component_grey);
+      width: 200px;
+      z-index: 999;
+
+      &-left {
+        left: 0;
+      }
+
+      &-right {
+        right: 0;
+      }
+    }
+
+    &__triangle {
+      width: 0;
+      height: 0;
+      border-top: 4px solid $white;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      position: absolute;
+      top: -3px;
+      box-shadow: 0 1px 7px -2px var(--component_grey);
+      margin-left: 0.5px;
+      z-index: 999;
+    }
+
+    &__vertical-invert {
+      .lca-tooltip__desktop__box {
+        top: 35px;
+      }
+      .lca-tooltip__desktop__triangle {
+        top: 31px;
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .title {
+    margin-bottom: 10px;
+    font-family: 'FiraCode-Medium';
+    font-size: 12px;
+    &__modal {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  .text {
+    line-height: 20px;
+    font-size: 12px;
+  }
+}

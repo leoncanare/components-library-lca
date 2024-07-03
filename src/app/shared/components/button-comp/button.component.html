@@ -1,0 +1,22 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  [ngClass]="buttonClasses"
+  [style.width]="width"
+  [style.min-width]="minWidth"
+  (click)="handleButton()"
+>
+  <img
+    *ngIf="icon && iconVariants | includes : variant"
+    class="lca-button__icon"
+    [ngClass]="{ 'lca-button__icon-small': size === 'xsmall', 'icon-margin': label }"
+    [src]="icon"
+    alt="Button icon"
+  />
+  <span
+    [class]="'lca-button__label-' + textStyle"
+    *ngIf="!(notLabelVariants | includes : variant)"
+  >
+    {{ label }}
+  </span>
+</button>

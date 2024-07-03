@@ -1,0 +1,38 @@
+<app-playground-pannel
+  [playgroudType]="'button'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (labelOut)="label = $event"
+  (disabledOut)="disabled = $event"
+  (widthOut)="width = $event"
+  (sizeOut)="size = $event"
+  (variantOut)="variant = $event"
+  (textStyleOut)="textStyle = $event"
+  (iconOut)="icon = $event"
+></app-playground-pannel>
+<div class="content">
+  @if(!loader) {
+  <div class="container-component">
+    @if( variant === 'primary' || variant === 'secondary' || variant === 'action-primary' ) {
+    <app-button
+      [palete]="palete"
+      [label]="label"
+      [variant]="variant"
+      [width]="width"
+      [size]="size"
+      [disabled]="disabled"
+      [textStyle]="textStyle"
+      [icon]="icon"
+    ></app-button>
+    } @if( variant === 'icon-button' ) {
+    <app-button
+      [palete]="palete"
+      [variant]="variant"
+      [disabled]="disabled"
+      [icon]="icon ? icon : '../../../../assets/icons/github.svg'"
+    ></app-button>
+    }
+  </div>
+  } @else {
+  <app-spinner></app-spinner>
+  }
+</div>

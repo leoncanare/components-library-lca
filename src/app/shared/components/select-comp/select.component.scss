@@ -1,0 +1,330 @@
+@use '../../scss/fonts' as *;
+@use '../../scss/generic-variables' as *;
+
+p {
+  margin: 0;
+}
+
+:host {
+  color: var(--component_text);
+  display: inline-flex;
+  flex-direction: column;
+  font-family: 'FiraCode-Regular';
+  font-size: 14px;
+  min-width: 100px;
+  margin-top: 10px;
+  position: relative;
+}
+
+:host:has(div):has(.lca-select__field-unfold):has(.lca-select__field-standard) {
+  height: 66px;
+}
+
+:host:has(div):has(.lca-select__field-unfold):has(.lca-select__field-small) {
+  height: 58px;
+}
+
+:host:has(div):has(.lca-select__field-standard) {
+  .lca-select__field {
+    .controls > input {
+      margin-top: auto;
+    }
+  }
+}
+
+.lca-select {
+  @mixin labelFloating($x: -3px, $y: -32px) {
+    padding: 0 2px;
+    transform: translate($x, $y) scale(0.9);
+    font-size: 14px;
+  }
+
+  &__label {
+    color: var(--component_principal);
+    left: 2px;
+    font-size: 16px;
+    padding: 0 8px;
+    position: absolute;
+    top: 15px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+
+    &-floating {
+      @include labelFloating;
+      color: var(--component_text);
+    }
+
+    &-invalid {
+      color: var(--component_error);
+    }
+
+    &-small {
+      top: 9px;
+    }
+
+    &-small:is(&-floating) {
+      @include labelFloating(-3px, -26px);
+    }
+  }
+
+  &__field {
+    align-items: center;
+    background-color: $white;
+    border: none;
+    box-sizing: border-box;
+    color: var(--component_text);
+    display: flex;
+    outline: solid 1px var(--component_border);
+    padding: 0 6px 0 10px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .controls {
+      display: flex;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .controls > input {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      height: 100%;
+      outline: none;
+      overflow: hidden;
+      padding: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+      height: auto;
+      margin-bottom: auto;
+
+      /* Chrome, Safari, Edge, Opera */
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      appearance: none;
+      -moz-appearance: textfield;
+
+      &::placeholder {
+        color: var(--component_border);
+        font-family: 'FiraCode-Regular';
+        font-size: 16px;
+      }
+      &:read-only {
+        cursor: default;
+      }
+    }
+
+    &:not(:focus-within, &-invalid):hover {
+      outline: 2px solid var(--component_principal);
+      .lca-select__label {
+        font-weight: 700;
+      }
+    }
+
+    &:not(&-invalid):focus-within {
+      box-shadow: 0px 0px 6px 2px rgba(var(--component_principal), 0.5);
+      outline: 1px solid var(--component_principal);
+      .lca-select__label {
+        color: var(--component_principal);
+        font-weight: 700;
+      }
+    }
+
+    &-standard {
+      border-radius: $radius-s;
+      min-height: 48px;
+    }
+
+    &-small {
+      border-radius: $radius-s;
+      min-height: 36px;
+    }
+
+    &-small {
+      &::focus-within + label:not(.lca-select__label-invalid) {
+        color: var(--component_principal);
+      }
+    }
+
+    &-invalid {
+      outline: 1px solid var(--component_error);
+    }
+
+    &-disabled,
+    &-disabled + div {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &-unfold {
+      position: absolute;
+      z-index: 50;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0 6px 0 8px;
+    }
+  }
+
+  &__buttons {
+    display: inline-flex;
+
+    img {
+      padding: 6px;
+    }
+
+    app-button {
+      ::ng-deep .lca-button__small {
+        padding: 8px 10px;
+      }
+    }
+
+    &-small {
+      margin-top: -6px;
+    }
+
+    .clean-button {
+      margin-right: 6px;
+    }
+  }
+
+  &__dropdown {
+    width: 100%;
+    margin-top: 8px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    height: 242px;
+    .divider-option {
+      height: 1px;
+      width: 100%;
+      background: var(--component_hr);
+    }
+    label {
+      margin-bottom: 0;
+    }
+    label:hover:not(.option-disabled, .option-selected) {
+      background: var(--component_hover);
+      .label {
+        font-weight: bold;
+      }
+    }
+
+    .option {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      align-items: center;
+      user-select: none;
+      padding: 9px 4px 9px 6px;
+      width: 100%;
+      font-size: 16px;
+      color: var(--component_principal);
+      word-break: break-all;
+      .label {
+        grid-column: 1 / 6;
+        grid-row: 1;
+      }
+      .checker {
+        grid-column: 6;
+        grid-row: span 2;
+        width: 18px;
+        height: 18px;
+        margin-left: auto;
+        padding-right: 10px;
+      }
+      input {
+        display: none;
+      }
+      .description {
+        grid-column: 1/6;
+        grid-row: 2;
+        margin: 5px 0;
+        color: var(--component_text);
+      }
+    }
+
+    .option-disabled {
+      color: var(--component_border);
+      span {
+        filter: var(--component_border_filter);
+      }
+      p {
+        opacity: 0.5;
+      }
+    }
+
+    .option-selected {
+      background: var(--component_shadow_contrast);
+      color: $white;
+      .label {
+        font-weight: bold;
+      }
+      p {
+        color: $white;
+        font-weight: normal;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 20px;
+      &-thumb {
+        border-radius: 3px;
+        background: var(--component_scrollbar);
+      }
+      &-track {
+        border-radius: 3px;
+        background: $white;
+      }
+    }
+    &-short {
+      height: 130px;
+    }
+    &-description {
+      height: 405px;
+    }
+    &-description-short {
+      height: 210px;
+    }
+    &-auto {
+      height: auto;
+    }
+    &-no-results p {
+      padding: 9px 4px 9px 0px;
+      margin: 0;
+    }
+    &-small {
+      margin-top: 0;
+    }
+  }
+
+  &__helpers {
+    color: var(--component_border);
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    padding: 1px 10px 0;
+    height: 18px;
+
+    &-error {
+      color: var(--component_error);
+    }
+  }
+}
+
+.dropdown-active {
+  ::ng-deep .lca-button__icon-button {
+    background-color: var(--component_principal);
+    img {
+      filter: $white-filter !important;
+    }
+  }
+}

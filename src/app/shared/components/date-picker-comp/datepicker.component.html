@@ -1,0 +1,289 @@
+<div
+  [class]="'lca-datepicker__field lca-datepicker__field-' + size"
+  [ngClass]="{
+    'lca-datepicker__field-disabled': disabled,
+    'lca-datepicker__field-unfold': unfold,
+    'lca-datepicker__field-invalid': control.valid === false && control.touched
+  }"
+>
+  <div class="controls">
+    <input
+      type="text"
+      maxlength="10"
+      [id]="name"
+      [(ngModel)]="dateValue"
+      [disabled]="disabled"
+      autocomplete="off"
+      (focus)="handleFocus()"
+      (blur)="handleBlur($event)"
+      (keypress)="onKeyPress($event)"
+      (mouseenter)="onInputHover(true)"
+      (mouseleave)="onInputHover(false)"
+      onpaste="return false"
+      ondrop="return false"
+    />
+    @if(label) {
+    <label
+      *ngIf="label"
+      [for]="name"
+      [class]="'lca-datepicker__label lca-datepicker__label-' + size"
+      [ngClass]="{
+        'lca-datepicker__label-floating': fieldOnFocus || !!value,
+        'lca-datepicker__label-invalid':
+          control.valid === false && control.touched
+      }"
+    >
+      {{ label }}
+    </label>
+    }
+    <!-- <div
+    *ngIf="label"
+    [ngClass]="
+      fieldOnFocus || dateValue
+        ? 'datepicker__label_container_floating'
+        : size === 'small'
+        ? 'datepicker__label_container'
+        : 'datepicker__label_container_standard'
+    "
+  >
+    <span
+      [ngClass]="
+        (fieldOnFocus || dateValue
+          ? 'datepicker__label_floating' +
+            (dateValue && !fieldOnFocus ? ' color-active' : '')
+          : 'datepicker__label') +
+        (control?.valid === false && control?.touched && !disabled ? ' color-error' : '')
+      "
+    >
+      {{ label }}
+    </span>
+  </div> -->
+    <!-- <div
+    *ngIf="fieldOnFocus && dateValue"
+    [ngClass]="
+      size === 'small'
+        ? 'datepicker__icon_container_clear'
+        : 'datepicker__icon_container_clear_standard'
+    "
+    (mousedown)="clearDate(); stopPropagation($event)"
+  >
+    <img src="../../../../assets/icons/close.svg" alt="" />
+  </div>
+  <div
+    [ngClass]="
+      size === 'small'
+        ? 'datepicker__icon_container_calendar'
+        : 'datepicker__icon_container_calendar_standard'
+    "
+    (mouseenter)="onInputHover(true)"
+    (mouseleave)="onInputHover(false)"
+    (mousedown)="showDatePicker()"
+  >
+    <img src="../../../../assets/icons/close.svg" alt="" />
+  </div> -->
+    <!-- class="clean-button" -->
+    <div
+      class="lca-datepicker__buttons"
+      [ngClass]="{
+        'lca-datepicker__buttons-small': size === 'small'
+      }"
+    >
+    <app-button
+        [palete]="palete"
+        *ngIf="fieldOnFocus && dateValue"
+        class="clean-button"
+        variant="icon-button"
+        [inputButton]="true"
+        size="small"
+        icon="../../../../assets/icons/close.svg"
+        (click)="clearDate(); stopPropagation($event)"
+      ></app-button>
+      <app-button
+        [palete]="palete"
+        [ngClass]="{
+          'calendar-active': unfold
+        }"
+        variant="icon-button"
+        [inputButton]="true"
+        size="small"
+        icon="../../../../assets/icons/calendar-line.svg"
+        (click)="showDatePicker()"
+      ></app-button>
+    </div>
+  </div>
+  @if(unfold){
+  <div id="dropdown" class="lca-datepicker__calendar">
+    <ng-container
+      [ngTemplateOutlet]="
+        isDayActive
+          ? daysContent
+          : isYearsActive
+          ? yearsContent
+          : isMonthActive
+          ? monthsContent
+          : daysContent
+      "
+    ></ng-container>
+  </div>
+  }
+
+  <ng-template #daysContent>
+    <div class="calendar-header">
+      <div class="calendar-header__button">
+        <img
+          src="../../../../assets/icons/arrow-left-s-line.svg"
+          alt=""
+          (click)="changeMonth(-1)"
+        />
+      </div>
+      <div
+        class="calendar-header__date"
+        (click)="
+          isDayActive = !isDayActive;
+          isYearsActive = !isYearsActive;
+          stopPropagation($event)
+        "
+      >
+        <span class="calendar-title__info__date">
+          {{ abbreviatedMonths[currentMonth] }}.
+          {{ currentYear }}
+        </span>
+      </div>
+      <div class="calendar-header__button">
+        <img
+          src="../../../../assets/icons/arrow-right-s-line.svg"
+          alt=""
+          (click)="changeMonth(1)"
+        />
+      </div>
+    </div>
+    <div class="calendar-days">
+      <div *ngFor="let dayOfWeek of daysWeek" class="calendar-days__week">
+        {{ dayOfWeek }}
+      </div>
+      <div
+        *ngFor="let day of daysInMonth"
+        [ngClass]="{ 'calendar-days__day': day }"
+        [ngStyle]="getStyleDay(day)"
+        (click)="selectDate(day); stopPropagation($event)"
+      >
+        {{ day }}
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #yearsContent>
+    <div class="calendar-header">
+      <div class="calendar-header__button">
+        <img
+          src="../../../../assets/icons/arrow-left-s-line.svg"
+          alt=""
+          (click)="changeYears(-1)"
+        />
+      </div>
+      <div
+        class="calendar-header__date"
+        (click)="
+          isDayActive = !isDayActive;
+          isYearsActive = !isYearsActive;
+          stopPropagation($event)
+        "
+      >
+        <span class="calendar-title__info__date">
+          {{ years[0] }} - {{ years[years.length - 1] }}
+        </span>
+      </div>
+      <div class="calendar-header__button">
+        <img
+          src="../../../../assets/icons/arrow-right-s-line.svg"
+          alt=""
+          (click)="changeYears(1)"
+        />
+      </div>
+    </div>
+    <div class="calendar-years">
+      <div
+        *ngFor="let year of years"
+        class="calendar-years__year"
+        (click)="
+          setYear(year);
+          isYearsActive = false;
+          isMonthActive = true;
+          stopPropagation($event)
+        "
+        [ngStyle]="getStyleYear(year)"
+      >
+        {{ year }}
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #monthsContent>
+    <div class="calendar-header">
+      <div class="calendar-header__button">
+        <img
+          src="../../../../assets/icons/arrow-left-s-line.svg"
+          alt=""
+          (click)="changeYears(-1)"
+        />
+      </div>
+      <div
+        class="calendar-header__date"
+        (click)="
+          isMonthActive = false; isYearsActive = true; stopPropagation($event)
+        "
+      >
+        <span class="calendar-title__info__date">
+          {{ currentYear }}
+        </span>
+      </div>
+      <div class="calendar-header__button">
+        <img
+          src="../../../../assets/icons/arrow-right-s-line.svg"
+          alt=""
+          (click)="changeYears(1)"
+        />
+      </div>
+    </div>
+    <div class="calendar-months">
+      <div
+        *ngFor="let abbreviatedMonth of abbreviatedMonths; let i = index"
+        class="calendar-months__month"
+        (click)="
+          setMonth(i);
+          isMonthActive = false;
+          isDayActive = true;
+          stopPropagation($event)
+        "
+        [ngStyle]="getStyleMonth(i)"
+      >
+        {{ abbreviatedMonth }}.
+      </div>
+    </div>
+  </ng-template>
+</div>
+<div class="helper-container" [ngClass]="{ disabled: disabled }">
+  <span
+    class="helper"
+    *ngIf="helper && (control?.valid !== false || !control?.touched)"
+  >
+    {{ helper }}
+  </span>
+  <span
+    *ngIf="control?.valid === false && control?.touched"
+    class="helper-error"
+  >
+    <ng-container
+      [ngTemplateOutlet]="!!control.errors ? customError : helperError"
+    ></ng-container>
+    <ng-template #helperError>
+      <span>{{ helper }}</span>
+    </ng-template>
+    <ng-template #customError>
+      <span> {{  control.errors.message }}</span>
+      @for (error of control.errors | keyvalue; track $index) {
+      <span>
+        {{ errorMessages[error.key] }}
+      </span>
+      }
+    </ng-template>
+  </span>
+</div>

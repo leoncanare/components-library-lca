@@ -1,0 +1,72 @@
+/* For use in src/lib/core/theming/_palette.scss */
+$md-principal: (
+    50 : #e1e5ec,
+    100 : #b3becf,
+    200 : #8093af,
+    300 : #4d678e,
+    400 : #274776,
+    500 : #01265e,
+    600 : #012256,
+    700 : #011c4c,
+    800 : #011742,
+    900 : #000d31,
+    A100 : #697fff,
+    A200 : #3654ff,
+    A400 : #0328ff,
+    A700 : #0022e9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$md-accent: (
+    50 : #e0efff,
+    100 : #b3d6fe,
+    200 : #80bbfe,
+    /* Back toggle */
+    300 : #18323D,
+    400 : #268bfd,
+    500 : #0077fd,
+    /* No Focus toggle */
+    600 : #266580,
+    700 : #105d7e,
+    /* Focus toggle */
+    800 : #266580,
+    900 : #177EAA,
+    A100 : #ffffff,
+    A200 : #eff2ff,
+    A400 : #bccbff,
+    A700 : #a2b7ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+

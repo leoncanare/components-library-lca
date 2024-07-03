@@ -1,0 +1,384 @@
+@use '../../scss/fonts' as *;
+@use '../../scss/generic-variables' as *;
+
+$default-shadow: rgba(0, 0, 0, 0.5) 0px 3px 5px 1px;
+$hover-shadow: rgba(0, 0, 0, 0.5) 0px 4px 6px 2px;
+
+$focus-shadow: rgba(0, 0, 0, 0.5) 0px 1px 6px 0px;
+$focus-shadow--tertiary: inset rgba(var(--component_principal), 0.05) 0px -5px 10px 0px,
+  inset rgba(var(--component_shadow_contrast), 0.2) 0px 5px 10px 0px;
+
+$active-shadow--primary: inset var(--component_shadow_contrast_2) 20px 20px 40px 0,
+  inset var(--component_shadow_contrast) 3px 3px 10px 0, inset white -1px -1px 2px 1px;
+$active-shadow--secondary: inset var(--component_shadow_contrast) 3px 3px 8px 0,
+  inset rgba(var(--component_shadow_contrast_2), 0.1) 3px 5px 1px 0;
+$active-shadow--tertiary: inset rgba(var(--component_principal), 0.05) 3px -5px 8px 0,
+  inset rgba(var(--component_shadow_contrast), 0.4) 3px 5px 8px 0;
+$active-shadow--action-primary: inset var(--component_action) 20px 20px 40px 0,
+  inset var(--component_action_sdw) 3px 3px 10px 0, inset $white -1px -1px 2px 1px;
+$active-shadow--action-secondary: inset var(--component_action_sdw) 0px 3px 8px 1px,
+  inset rgba(var(--component_action), 0.1) 0px 3px 5px 1px;
+$active-shadow--circle-secondary: inset var(--component_action) 2px 2px 4px 0;
+$active-shadow--icon-button: inset 0px 0px 9px 0 rgb(0, 0, 0);
+$active-shadow--toggle: inset var(--component_principal) 3px 3px 8px 0;
+
+$border-primary: solid 2px var(--component_border);
+$border-toggle: solid 1px var(--component_principal);
+
+.lca-button {
+  align-items: center;
+  border: none;
+  box-shadow: $default-shadow;
+  cursor: pointer;
+  display: flex;
+  font-family: 'FiraCode-Regular';
+  font-size: 18px;
+  justify-content: center;
+  min-width: 142px;
+  text-align: center;
+  transition: all 0.25s;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+
+  &:hover:not(:disabled, .input-button) {
+    font-weight: bolder;
+    transform: scale(1.05);
+  }
+
+  &:not(&__tertiary, &__icon-button, :active, :disabled):hover {
+    box-shadow: $hover-shadow;
+  }
+
+  &:not(&__tertiary, &__icon-button, .allowfocus-false, :active):focus,
+  &:not(&__tertiary, &__icon-button, :active):is(.selected) {
+    box-shadow: $focus-shadow;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:not(&__tertiary):active {
+    font-family: 'FiraCode-Regular';
+  }
+
+  &:disabled {
+    box-shadow: none;
+    cursor: default;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &__xsmall {
+    border-radius: 9px;
+    font-size: 16px;
+    height: 30px;
+    padding: 8px 10px;
+  }
+
+  &__small {
+    border-radius: $radius-s;
+    height: 36px;
+    padding: 8px 16px;
+  }
+
+  &__standard {
+    border-radius: $radius-s;
+    height: 48px;
+    padding: 14px 16px;
+  }
+
+  &__primary {
+    color: $white;
+    background-color: var(--component_principal);
+
+    &:hover:not(:disabled) {
+      background-image: linear-gradient(to bottom, var(--component_principal), var(--component_shadow_contrast));
+      border: $border-primary;
+    }
+
+    &:not(.allowfocus-false, :active):focus,
+    &:not(:active):is(.selected) {
+      background-color: var(--component_btn);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--component_btn);
+
+      border: var(--component_border);
+      box-shadow: $active-shadow--primary;
+    }
+
+    > img {
+      filter: $white-filter;
+    }
+  }
+
+  &__secondary {
+    &:hover:not(:disabled),
+    &:not(.allowfocus-false):focus,
+    &:active:not(:disabled),
+    &:is(.selected) {
+      border: $border-primary;
+    }
+
+    &:active:not(:disabled) {
+      box-shadow: none;
+    }
+
+    > img {
+      filter: var(--component_btn_filter);
+    }
+  }
+
+  &__secondary,
+  &__circle-secondary {
+    color: var(--component_principal);
+    background-color: $white;
+    border: solid 1px var(--component_grey_soft);
+  }
+
+  &__tertiary {
+    color: var(--component_principal);
+    background-color: transparent;
+    box-shadow: none;
+
+    &:not(.allowfocus-false):focus,
+    &:is(.selected) {
+      box-shadow: $focus-shadow--tertiary;
+    }
+
+    &:active:not(:disabled) {
+      box-shadow: $active-shadow--tertiary;
+    }
+
+    > img {
+      filter: var(--component_btn_filter);
+    }
+  }
+
+  &__toggle {
+    color: var(--component_grey);
+    background-color: transparent;
+    box-shadow: none;
+    border: solid 1px var(--component_grey_soft);
+
+    > img {
+      filter: var(--component_grey_filter);
+    }
+
+    &:not(.allowfocus-false):focus,
+    &:hover:not(:disabled) {
+      color: var(--component_principal);
+      border: $border-toggle;
+      transform: none;
+      font-weight: normal;
+
+      > img {
+        filter: var(--component_principal_filter);
+      }
+    }
+
+    &:active:not(:disabled) {
+      box-shadow: $active-shadow--toggle;
+      color: var(--component_principal);
+      border: 1px solid var(--component_principal);
+
+      > img {
+        filter: var(--component_principal_filter);
+      }
+    }
+
+    &:is(.selected) {
+      background-color: var(--component_link);
+      box-shadow: none !important;
+      color: var(--component_principal);
+      border: $border-toggle;
+
+      > img {
+        filter: var(--component_principal_filter);
+      }
+    }
+  }
+
+  &__action-primary,
+  &__circle-primary {
+    color: $white;
+    background-color: var(--component_action_border);
+
+    &:hover:not(:disabled) {
+      background-image: -prefix-linear-gradient(
+        top,
+        var(--component_action_border),
+        var(--component_action_sdw)
+      );
+      background-image: linear-gradient(to bottom, var(--component_action_border), var(--component_action_sdw));
+      border: solid 2px var(--component_action_border);
+    }
+
+    &:not(.allowfocus-false, :active):focus,
+    &:not(:active):is(.selected) {
+      background-color: var(--component_action_sdw);
+    }
+
+    &:active:not(:disabled) {
+      border: solid 2px var(--component_action_border);
+      box-shadow: none;
+    }
+
+    > img {
+      filter: $white-filter;
+    }
+  }
+
+  &__action-secondary {
+    background-color: $white;
+    border: solid 1px var(--component_action_border);
+    color: var(--component_action);
+  }
+
+  &__action-secondary,
+  &__circle-secondary {
+    &:hover:not(:disabled),
+    &:not(.allowfocus-false):focus,
+    &:is(.selected) {
+      border: solid 2px var(--component_action_border2);
+    }
+
+    &:active:not(:disabled) {
+      border: solid 2px var(--component_action_border2);
+      box-shadow: $active-shadow--action-secondary;
+    }
+  }
+
+  &__circle-primary {
+    height: 56px;
+    width: 56px;
+  }
+
+  &__circle-secondary {
+    height: 46px;
+    width: 46px;
+
+    &:active:not(:disabled) {
+      box-shadow: $active-shadow--circle-secondary;
+    }
+
+    > img {
+      filter: var(--component_action_border2_filter);
+    }
+  }
+
+  &__circle-primary,
+  &__circle-secondary {
+    border-radius: 50%;
+    min-width: auto;
+    > img {
+      height: 24px;
+    }
+  }
+
+  &__icon-button {
+    background-color: $white;
+    border-radius: $radius-s;
+    box-shadow: none;
+    min-width: auto;
+
+    &:hover:not(:disabled) {
+      background-color: var(--component_principal);
+      box-shadow: none;
+      img {
+        filter: $white-filter;
+      }
+    }
+
+    &:not(.allowfocus-false):focus,
+    &:is(.selected) {
+      background-color: var(--component_principal);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--component_principal);
+      box-shadow: $active-shadow--icon-button;
+      img {
+        filter: $white-filter;
+      }
+    }
+
+    &:disabled > img {
+      filter: var(--component_grey_soft_filter);
+    }
+
+    > img {
+      filter: var(--component_principal_filter);
+    }
+  }
+
+  &__icon-button:is(&__standard) {
+    height: 36px;
+    width: 36px;
+  }
+
+  &__icon-button:is(&__small) {
+    height: 32px;
+    width: 32px;
+  }
+
+  &__icon-button:is(&__xsmall) {
+    height: 28px;
+    width: 28px;
+  }
+
+  &__icon {
+    height: 18px;
+    width: 18px;
+
+    &-small {
+      height: 16px;
+      width: 16px;
+    }
+
+    &-left,
+    &-right {
+      min-width: 130px;
+    }
+
+    &-left:not(.allowfocus-false, :active):focus > span,
+    &-right:not(.allowfocus-false, :active):focus > span,
+    &-left:not(:active):is(.selected) > span,
+    &-right:not(:active):is(.selected) > span {
+      color: var(--component_principal);
+    }
+
+    &-left > img {
+      margin-right: 10px;
+    }
+
+    &-right {
+      flex-direction: row-reverse;
+      > img {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &__label-uppercase {
+    text-transform: uppercase;
+  }
+  &__label-capitalize {
+    text-transform: capitalize;
+  }
+  &__label-lowercase {
+    text-transform: lowercase;
+  }
+  &__label-none {
+    text-transform: none;
+  }
+}
+
+.icon-margin {
+  margin-right: 20px;
+}

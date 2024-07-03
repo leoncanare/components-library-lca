@@ -1,0 +1,109 @@
+<app-playground-pannel 
+  [playgroudType]="'dialog'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (sizeOut)=" size = $event"
+  (dialogTypeOut)=" ngType = $event"
+  (dialogTimerOut)=" dialogTimer = $event"
+  (dialogBackGroundBlockOut)=" dialogBackGroundBlock = $event"
+  (dialogTitleOut)=" dialogTitle = $event"
+  (dialogImageOut)=" dialogImage = $event"
+  (dialogTextOut)=" dialogText = $event"
+  (dialogPrimaryBtnOut)=" dialogPrimaryBtn = $event"
+  (dialogPrimaryLabelBtnOut)=" dialogPrimaryLabelBtn = $event"
+  (dialogSecondaryBtnOut)=" dialogSecondaryBtn = $event"
+  (dialogSecondaryLabelBtnOut)=" dialogSecondaryLabelBtn = $event"
+  >
+</app-playground-pannel>
+<div class="content">
+  @if(!loader) { 
+  <div class="container-component">
+    <app-button
+      [palete]="palete"
+      label="open dialog"
+      (actionClick)="handleShowDialog()"
+    ></app-button>
+    <app-dialog
+      [palete]="palete"
+      [showDialog]="dialog"
+      [size]="size ? size : 'small'"
+      [titleDialog]="dialogTitle ? dialogTitle : 'Title Dialog'"
+      [imageDialog]="dialogImage ? dialogImage : '../../../../assets/images/bibliophile-rafiki-darck-blue.png'"
+      [textDialog]="dialogText ? dialogText : 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque, doloribus quas veritatis minima debitis harum unde placeat, minus in, modi eligendi repudiandae. Optio et vel vitae. Sed, adipisci. Officia, architecto.'"
+      [timeDialogOpen]="dialogTimer"
+      [bgBlocked]="dialogBackGroundBlock"
+      [primaryButton]="dialogPrimaryBtn"
+      [labelPrimaryButton]="dialogPrimaryLabelBtn"
+      [secondaryButton]="dialogSecondaryBtn"
+      [labelSecondaryButton]="dialogSecondaryLabelBtn"
+      (closeDialog)="dialog = false"
+      (confirm)="dialog = false"
+    ></app-dialog>
+    <app-dialog
+      id="ng-dialog"
+      [palete]="palete"
+      [size]="size ? size : 'standard'"
+      [showDialog]="ngDialog"
+      [timeDialogOpen]="dialogTimer"
+      [bgBlocked]="dialogBackGroundBlock"
+      size="standard"
+      [ngContentActive]="true"
+      (closeDialog)="ngDialog = false"
+    >
+      <div class="ng-dialog">
+        <p class="ng-dialog__title">Title NgDialog</p>
+        <img
+          class="ng-dialog__image"
+          src="../../../../assets/images/bibliophile-rafiki-darck-blue.png"
+          alt=""
+        />
+        <p class="ng-dialog__text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse error
+          omnis cumque adipisci corrupti in cupiditate veritatis sit sequi
+          repellat ullam consequuntur molestiae est tempore, aliquid atque
+          nostrum! Eaque, fuga. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Alias magnam minima ea repudiandae voluptatem
+          dignissimos laboriosam minus maiores esse ad odio quidem debitis
+          pariatur rerum, quos exercitationem, explicabo officiis? Officiis.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse error
+          omnis cumque adipisci corrupti in cupiditate veritatis sit sequi
+          repellat ullam consequuntur molestiae est tempore, aliquid atque
+          nostrum! Eaque, fuga. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Alias magnam minima ea repudiandae voluptatem
+          dignissimos laboriosam minus maiores esse ad odio quidem debitis
+          pariatur rerum, quos exercitationem, explicabo officiis? Officiis.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse error
+          omnis cumque adipisci corrupti in cupiditate veritatis sit sequi
+          repellat ullam consequuntur molestiae est tempore, aliquid atque
+          nostrum! Eaque, fuga. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Alias magnam minima ea repudiandae voluptatem
+          dignissimos laboriosam minus maiores esse ad odio quidem debitis
+          pariatur rerum, quos exercitationem, explicabo officiis? Officiis.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse error
+          omnis cumque adipisci corrupti in cupiditate veritatis sit sequi
+          repellat ullam consequuntur molestiae est tempore, aliquid atque
+          nostrum! Eaque, fuga. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Alias magnam minima ea repudiandae voluptatem
+          dignissimos laboriosam minus maiores esse ad odio quidem debitis
+          pariatur rerum, quos exercitationem, explicabo officiis? Officiis.
+        </p>
+        <div class="ng-dialog__buttons">
+          <app-button
+            label="Cancel"
+            variant="secondary"
+            size="small"
+            (actionClick)="ngDialog = false"
+          ></app-button>
+          <app-button
+            label="Acept"
+            size="small"
+            (actionClick)="ngDialog = false"
+          ></app-button>
+        </div>
+      </div>
+    </app-dialog>
+    <div></div>
+  </div>
+  }@else {
+  <app-spinner></app-spinner>
+  }
+</div>

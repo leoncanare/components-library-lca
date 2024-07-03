@@ -1,0 +1,61 @@
+<div
+  appClickOutside
+  (clickedOutside)="clickOutside()"
+  class="lca-textarea__field"
+  [style.width]="width"
+  [style.height]="height"
+  [ngClass]="{
+    'lca-textarea__field-disabled': disabled,
+    'lca-textarea__field-invalid': control.valid === false && control.touched
+  }"
+>
+  <textarea
+    #textarea
+    id="textarea"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    [disabled]="disabled"
+    [attr.maxlength]="maxLength"
+    (input)="handleTextarea(textarea.value)"
+    (focus)="handleFocus()"
+    (blur)="handleBlur($event)"
+  ></textarea>
+  <label
+    *ngIf="label"
+    [for]="name"
+    class="lca-textarea__label"
+    [ngClass]="{
+      'lca-textarea__label-floating': fieldOnFocus || !!value,
+      'lca-textarea__label-invalid': control.valid === false && control.touched
+    }"
+  >
+    {{ label }}</label
+  >
+</div>
+<div class="lca-textarea__helpers">
+  <span *ngIf="helper && (control.valid !== false || !control.touched)">{{
+    helper
+  }}</span>
+  <span
+    *ngIf="control.valid === false && control.touched"
+    class="lca-textarea__helpers-error"
+  >
+    <ng-container
+      [ngTemplateOutlet]="!!control.errors ? customError : helperError"
+    ></ng-container>
+    <ng-template #helperError>
+      <span>{{ helper }}</span>
+    </ng-template>
+    <ng-template #customError>
+      <span> {{  control.errors.message }}</span>
+      @for (error of control.errors | keyvalue; track $index) {
+      <span>
+        {{ errorMessages[error.key] }}
+      </span>
+      }
+    </ng-template>
+  </span>
+  <span class="lca-textarea__helpers-counter" *ngIf="counter">
+    {{ value.length || 0 }}/{{ maxLength }}
+  </span>
+</div>

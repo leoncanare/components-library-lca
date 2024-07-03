@@ -1,0 +1,159 @@
+<div class="container">
+  @if(!loadingRegister) { 
+  <div class="form">
+    <h1>BOOK REGISTRATION FORM:</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="handleSubmitForm()">
+      <app-input
+        label="Title"
+        formControlName="title"
+        [errorMessages]="requiredMenssage"
+      ></app-input>
+      <app-input
+        label="Author"
+        formControlName="author"
+        [errorMessages]="requiredMenssage"
+      ></app-input>
+      <app-input
+        label="Publisher"
+        formControlName="publisher"
+        [errorMessages]="requiredMenssage"
+      ></app-input>
+      <app-input
+        label="Code ISBN"
+        formControlName="isbn"
+        placeholder="000-0-00-000000-0"
+        tooltipTitle="ISBN:"
+        tooltipText="Both ISBN 10 and ISBN 13 formats are allowed."
+        [errorMessages]="requiredMenssage"
+        prefix="ISBN"
+      ></app-input>
+      <app-input
+        label="Edition"
+        formControlName="edition"
+        type="number"
+      ></app-input>
+      <app-datepicker
+        label="Realease Date"
+        formControlName="realease"
+        width="100%"
+      ></app-datepicker>
+      <app-select
+        label="Procedence"
+        formControlName="procedence"
+        [errorMessages]="requiredMenssage"
+        [options]="countriesOptions"
+        predictiveType="start"
+        [description]="false"
+        [sizeAutoscroll]="500"
+      ></app-select>
+      <app-select
+        label="Language"
+        formControlName="language"
+        [errorMessages]="requiredMenssage"
+        [options]="languagesOptions"
+        predictiveType="start"
+        [description]="false"
+        [sizeAutoscroll]="500"
+      ></app-select>
+      <app-input
+        label="Pages"
+        formControlName="pages"
+        [errorMessages]="pagesMenssage"
+        tooltipTitle="Pages:"
+        tooltipText="We consider a book to be a set of 50 pages so it must have more than 50 pages for the field to be valid."
+        type="number"
+      ></app-input>
+      <div>
+        <p class="title-input">Cover Type :</p>
+        <app-radio formControlName="cover" [options]="coverType"></app-radio>
+      </div>
+      <div>
+        <p class="title-input">Caregories :</p>
+        <div class="categories">
+          <div class="categories-group">
+            @for (category of bookCategories; track $index) {
+            <app-checkbox
+              [label]="category.label"
+              [checked]="categories"
+              (checkboxChange)="hadleCategory($event, category.value)"
+            ></app-checkbox>
+            }
+          </div>
+          <div class="categories-group">
+            @for (category of bookCategories2; track $index) {
+            <app-checkbox
+              [label]="category.label"
+              (checkboxChange)="hadleCategory($event, category.value)"
+            ></app-checkbox>
+            }
+          </div>
+        </div>
+      </div>
+      <app-textarea label="Summary" formControlName="summary"></app-textarea>
+      <app-toggle
+        label="Digital Format"
+        formControlName="digitalFormat"
+      ></app-toggle>
+      <app-button
+        type="submit"
+        [label]="!loadingRegister ? 'Register' : 'Registering...'"
+        [disabled]="registerForm.status === 'INVALID'"
+        width="100%"
+      >
+      </app-button>
+    </form>
+  </div>
+  }@else {
+    <app-spinner></app-spinner>
+  }
+</div>
+
+<app-dialog
+  id="ng-dialog"
+  [size]="'standard'"
+  [showDialog]="bookDialog"
+  size="standard"
+  [ngContentActive]="true"
+  (closeDialog)="bookDialog = false"
+>
+  <div class="ng-dialog">
+    <p class="ng-dialog__title">Successfully registration</p>
+    <img
+      class="ng-dialog__image"
+      src="../../../assets/images/book-register.png"
+      alt=""
+    />
+    <p class="ng-dialog__subtitle">Resume:</p>
+    <hr>
+    <div class="ng-dialog__content">
+      <div class="ng-dialog__content-data">
+        <div class="data-type">Title :</div>
+        <div class="data-filed">{{ bookData?.title }}</div>
+      </div>
+      <div
+        *ngFor="let item of bookData | keyvalue"
+        class="ng-dialog__content-data"
+        [ngClass]="{ 'column-data': (item.key === 'summary' || item.key === 'categories') }"
+      >
+        <div class="data-type" *ngIf="item.key !== 'title'">
+          {{ item.key }} :
+        </div>
+        <div class="data-filed" *ngIf="item.key !== 'title' && item.key !== 'categories'">
+          {{ item.value }}
+        </div>
+        <div class="data-filed tags" *ngIf="item.key !== 'title' && item.key === 'categories'">
+          <div *ngFor="let categorie of item.value" class="tag">
+            {{ categorie }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ng-dialog__buttons">
+      <app-button
+        label="Acept"
+        size="small"
+        (actionClick)="bookDialog = false; resetForm()"
+      ></app-button>
+    </div>
+  </div>
+</app-dialog>

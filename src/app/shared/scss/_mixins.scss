@@ -1,0 +1,72 @@
+@use './generic-variables' as *;
+
+// Mixin that customize style for scrollbars
+@mixin scrollbars($_color, $_size: 10px) {
+  &::-webkit-scrollbar {
+    width: $_size;
+    height: $_size;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    border-radius: $_size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $_color;
+    border-radius: $_size;
+  }
+}
+
+@mixin centerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin controlStyles {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 16px;
+  margin-bottom: 20px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #00000099;
+  background-color: $background;
+  border-radius: 5px;
+}
+
+@mixin columnButtons {
+  flex-direction: column-reverse;
+  align-items: center;
+  app-button:nth-child(2) {
+    margin-bottom: 15px;
+  }
+}
+
+@mixin no-selectionable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+
+@mixin m {
+  @media screen and (max-width: 895px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin s {
+  @media screen and (max-width: 465px) {
+    @content;
+  }
+}

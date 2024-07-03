@@ -1,0 +1,304 @@
+@use '../../scss/generic-variables' as *;
+@use '../../scss/fonts' as *;
+
+:host {
+  color: var(--component_text);
+  display: inline-flex;
+  flex-direction: column;
+  font-family: 'FiraCode-Regular';
+  font-size: 14px;
+  min-width: 100px;
+  position: relative;
+}
+
+.lca-input {
+  @mixin labelFloating($x: -3px, $y: -32px) {
+    padding: 0 2px;
+    transform: translate($x, $y) scale(0.9);
+    font-size: 14px;
+  }
+
+  &__label {
+    color: var(--component_principal);
+    left: 2px;
+    font-size: 16px;
+    padding: 0 8px;
+    position: absolute;
+    top: 15px;
+    transition: all 0.5s ease;
+    pointer-events: none;
+
+    &-floating {
+      @include labelFloating;
+      color: var(--component_text);
+    }
+
+    &-invalid {
+      color: var(--component_error);
+    }
+
+    &-small {
+      top: 9px;
+    }
+
+    &-small:is(.lca-input__label-floating) {
+      @include labelFloating(3px, -26px);
+    }
+
+    &-clear:is(.lca-input__label-floating) {
+      @include labelFloating(3px, -32px);
+      background-image: none;
+      color: white;
+    }
+
+    &-clear:is(.lca-input__label-small):is(.lca-input__label-floating) {
+      @include labelFloating(3px, -26px);
+      background-image: none;
+    }
+
+    &-clear:is(.lca-input__label-invalid) {
+      color: var(--component_error_2);
+    }
+  }
+
+  &__field {
+    align-items: center;
+    background-color: $white;
+    border: none;
+    box-sizing: border-box;
+    color: var(--component_text);
+    display: flex;
+    outline: solid 1px var(--component_border);
+    padding: 0 6px 0 10px;
+    transition: all 0.2s ease;
+
+    > input,
+    > textarea {
+      background-color: $white;
+      font-size: 16px;
+      border: none;
+      outline: none;
+      resize: none;
+      box-sizing: border-box;
+      width: 98%;
+      height: 100%;
+      text-overflow: ellipsis;
+
+      /* Chrome, Safari, Edge, Opera */
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      appearance: none;
+      -moz-appearance: textfield;
+
+      &::placeholder {
+        color: $white;
+      }
+    }
+
+    textarea {
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+
+    input[type='password'] {
+      font-family: 'asteriskpass';
+      font-style: normal;
+      font-weight: normal;
+
+      /* For safety - reset parent styles, that can break glyph codes*/
+      font-variant: normal;
+      text-transform: none;
+
+      /* Font smoothing. That was taken from TWBS */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    input::-ms-reveal {
+      display: none;
+    }
+
+    &-multiline {
+      max-height: none;
+      min-height: 48px;
+
+      > textarea {
+        border-bottom: 6px solid transparent;
+        border-top: 6px solid transparent;
+        box-sizing: border-box;
+        font-size: 16px;
+        line-height: 1.25;
+        max-height: none;
+        min-height: 48px;
+        overflow: hidden;
+        resize: none;
+        text-overflow: unset;
+        white-space: unset;
+      }
+    }
+
+    &-standard {
+      border-radius: $radius-s;
+      height: 48px;
+    }
+
+    &-small {
+      border-radius: $radius-s;
+      height: 36px;
+    }
+
+    &-invalid {
+      outline: 1px solid var(--component_error);
+    }
+
+    &-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      > input {
+        background-color: $white;
+      }
+    }
+
+    &-disabled,
+    &-disabled + div {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &-clear {
+      outline: none;
+    }
+
+    &-clear:is(.lca-input__field-floating-invalid) {
+      outline: 1.5px solid var(--component_error_2);
+    }
+
+    &:not(:focus-within, .lca-input__field-invalid):hover {
+      outline: 2px solid var(--component_principal);
+    }
+
+    &:focus-within > input,
+    &:focus-within > textarea {
+      &::placeholder {
+        color: var(--component_grey_soft);
+        font-size: 16px;
+      }
+    }
+
+    &:not(.lca-input__field-invalid):focus-within {
+      box-shadow: 0px 0px 6px 2px rgba(var(--component_principal), 0.5);
+      outline: 1px solid var(--component_principal);
+
+      > label:not(.lca-input__label-clear) {
+        color: var(--component_principal);
+        font-weight: 700;
+      }
+    }
+
+    &-small {
+      &::focus-within + label:not(.lca-input__label-invalid) {
+        color: var(--component_principal);
+      }
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0 6px 0 8px;
+    }
+  }
+
+  /**
+  * Variants of the styles to adapt the behavior of the input in the private area login, with respect to the auto-completion of the Google-Chrome password.
+  */
+  &__field:is(.lca-input__field-clear) {
+    input {
+      position: absolute;
+      padding-left: 10px;
+      width: 100%;
+      left: 0px;
+      border-radius: 10px;
+      height: 48px !important;
+    }
+  }
+  &__field:is(.lca-input__field-clear):has(app-button) {
+    input {
+      padding-right: 45px !important;
+    }
+  }
+  &__field:is(.lca-input__field-clear):has(.eye-button):has(.clean-button) {
+    input {
+      padding-right: 80px !important;
+    }
+  }
+
+  &__prefix {
+    margin-right: 5px;
+  }
+
+  &__suffix {
+    margin: 0 11px 0 5px;
+  }
+
+  &__prefix,
+  &__suffix {
+    color: var(--component_grey_soft);
+  }
+
+  &__buttons {
+    display: inline-flex;
+
+    img {
+      padding: 6px;
+    }
+
+    app-button {
+      ::ng-deep .lca-button__small {
+        padding: 8px 10px;
+      }
+    }
+  }
+
+  &__helpers {
+    color: var(--component_border);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 14px;
+    padding: 1px 10px 0;
+    height: 18px;
+
+    &-clear {
+      color: $white;
+    }
+
+    &-error {
+      color: var(--component_error);
+    }
+
+    &-clear &-error {
+      color: var(--component_error_2);
+    }
+    &-match {
+      color: var(--component_ok);
+      font-weight: bold;
+    }
+  }
+  .helper-text {
+    word-break: break-all;
+  }
+}
+
+.clear-buttons {
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.clean-button-margin {
+  margin-right: 6px;
+}

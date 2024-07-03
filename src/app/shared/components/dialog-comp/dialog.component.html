@@ -1,0 +1,70 @@
+<div
+  [ngClass]="{
+    'modal-close': !showDialog,
+    'modal-open': showDialog,
+    'modal-transition': true
+  }"
+>
+  @if(showDialog) {
+    <div
+      id="modal-content"
+      class="modal-content"
+      (keydown)="onKeyDown($event)"
+      (click)="onExit($event)"
+    >
+      <div
+        [class]="'modal-' + size"
+        class="modal"
+      >
+        @if(!bgBlocked) {
+          <div class="modal__close" (click)="close()">
+            <img src="../../../../assets/icons/close.svg"/>
+          </div>
+        }
+        <div *ngIf="!ngContentActive; else ngContent">
+          <p class="modal__title">{{ titleDialog }}</p>
+          @if(imageDialog){
+            <div class="modal__img">
+                <img [src]="imageDialog" />
+            </div>
+          }
+          <p class="modal__text">{{ textDialog }}</p>
+          @if(primaryButton || secondaryButton){
+            <div
+              class="modal__buttons"
+              [ngClass]="{ 'small-buttons': size === 'small' }"
+            >
+                @if(secondaryButton){
+                  <app-button
+                    [palete]="palete"
+                    variant="secondary"
+                    size="small"
+                    [width]="size === 'small' ? '100%' : 'auto'"
+                    [label]="labelSecondaryButton"
+                    textStyle="none"
+                    (actionClick)="close()"
+                  ></app-button>
+                }
+                @if(primaryButton){
+                  <app-button
+                    [palete]="palete"
+                    variant="primary"
+                    size="small"
+                    [width]="size === 'small' ? '100%' : 'auto'"
+                    [label]="labelPrimaryButton"
+                    textStyle="none"
+                    (actionClick)="handlePrimaryButtonClick()"
+                  ></app-button>
+                }
+            </div>
+          }
+        </div>
+        <ng-template #ngContent>
+          <div class="ng-content">
+            <ng-content></ng-content>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  }
+</div>

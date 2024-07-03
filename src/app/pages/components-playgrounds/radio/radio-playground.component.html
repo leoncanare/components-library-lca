@@ -1,0 +1,17 @@
+<app-playground-pannel
+  [playgroudType]="'radio'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+></app-playground-pannel>
+<div class="content">
+  @if(!loader) { 
+  <div class="container-component">
+    <app-radio
+      [palete]="palete"
+      [options]="radioOptions"
+    ></app-radio>
+    <div></div>
+  </div>
+  }@else {
+  <app-spinner></app-spinner>
+  }
+</div>

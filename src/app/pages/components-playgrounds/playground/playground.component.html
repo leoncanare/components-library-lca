@@ -1,0 +1,14 @@
+<div class="content">
+    <div class="container-component">
+        @for (component of components; track $index) {
+            <app-button
+                [label]="component.label"
+                variant="primary"
+                width="200px"
+                size="standard"
+                [icon]="component.icon"
+                (actionClick)="redirect(component.link)"
+            ></app-button>
+        }
+    </div>
+</div>

@@ -1,0 +1,51 @@
+@use '../generic-variables' as *;
+@use '../fonts' as *;
+
+@mixin host {
+  align-items: start;
+  color: var(--component_grey);
+  display: flex;
+  flex-direction: column;
+  font-family: 'FiraCode-Regular';
+  font-size: 14px;
+  line-height: 16px;
+}
+
+@mixin input-item {
+  &__label {
+    cursor: pointer;
+    display: flex;
+    padding-left: 28px;
+    position: relative;
+
+    span:first-of-type {
+      position: relative;
+      top: 2px;
+    }
+
+    &:hover {
+      color: var(--component_principal);
+      font-family: 'FiraCode-Medium';
+    }
+  }
+
+  &__disabled,
+  &__input:disabled ~ span {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__control {
+    border: 1px solid var(--component_grey);
+    box-sizing: border-box;
+    height: 18px;
+    left: 0;
+    position: absolute;
+    width: 18px;
+    top: 0;
+  }
+
+  &__input {
+    display: none;
+  }
+}

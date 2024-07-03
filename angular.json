@@ -90,6 +90,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/app/shared/scss/themes/material/angular-material.scss",
               "src/styles.scss"
             ],
             "scripts": []

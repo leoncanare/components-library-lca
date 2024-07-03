@@ -1,0 +1,34 @@
+<app-playground-pannel
+  [playgroudType]="'textarea'"
+  (paleteOut)="refreshCmponent($event, 'palete')"
+  (labelOut)="label = $event"
+  (disabledOut)="disabled = $event"
+  (widthOut)="width = $event"
+  (heightOut)="height = $event"
+  (placeholderOut)="placeholder = $event"
+  (helperOut)="helper = $event"
+  (defaultValueOut)="defaultValue = $event"
+  (counterOut)="counter = $event"
+  (maxLengthOut)="maxLength = $event"
+></app-playground-pannel>
+<div class="content">
+  @if(!loader) { 
+  <div class="container-component">
+      <app-textarea
+        [formControl]="testTextarea"
+        [palete]="palete"
+        [label]="label ? label : 'Label'"
+        [width]="width"
+        [height]="height"
+        [disabled]="disabled"
+        [placeholder]="placeholder"
+        [helper]="helper"
+        [defaultValue]="defaultValue"
+        [counter]="counter"
+        [maxLength]="maxLength"
+      ></app-textarea>
+  </div>
+  }@else {
+  <app-spinner></app-spinner>
+  }
+</div>
