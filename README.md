@@ -1,27 +1,112 @@
-# ComponentsLibraryLca
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+# 📚 Components Library LCA
 
-## Development server
+Bienvenido a **Components Library LCA**, una librería de componentes UI reactivos desarrollada con Angular CLI v17.3.8. Esta librería está diseñada para facilitar la creación de aplicaciones front-end modernas, proporcionando una colección de componentes reutilizables y altamente personalizables para tu proyecto.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## 🚀 Características principales
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- 🔥 **Angular CLI 17.3.8**: Construido con la última versión de Angular para asegurar compatibilidad y rendimiento.
+- ⚛️ **Componentes Reactivos**: Todos los componentes están preparados para trabajar de manera reactiva, integrándose a la perfección con formularios y servicios de datos.
+- 🎨 **Altamente personalizable**: Diseñado con opciones flexibles para estilos y comportamiento.
+- 📦 **Fácil integración**: Perfecto para cualquier proyecto Angular gracias a su sencilla instalación y uso.
+- 🛠️ **Actualización continua**: Mantenido y mejorado constantemente para incluir nuevas funcionalidades y mejoras de rendimiento.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 📦 Instalación
 
-## Running unit tests
+1. Clona el repositorio en tu máquina local:
+   ```bash
+   git clone https://github.com/leoncanare/components-library-lca.git
+   ```
+   
+2. Navega al directorio del proyecto:
+   ```bash
+   cd components-library-lca
+   ```
+   
+3. Instala las dependencias necesarias:
+   ```bash
+   npm install
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+4. Lanza el servidor de desarrollo para probar la librería:
+   ```bash
+   ng serve
+   ```
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🧑‍💻 Uso
 
-## Further help
+Para utilizar los componentes en tu proyecto Angular, primero necesitas importar el módulo de la librería y luego usar los componentes en tus templates.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### 1. Importar el módulo
+
+En tu archivo `app.module.ts`, importa el módulo de la librería:
+
+```typescript
+import { LcaComponentsModule } from 'components-library-lca';
+
+@NgModule({
+  declarations: [
+    // tus componentes
+  ],
+  imports: [
+    LcaComponentsModule,
+    // otros módulos
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+### 2. Usar los componentes
+
+Ahora puedes utilizar los componentes de la librería en tus templates. Por ejemplo:
+
+```html
+<lca-button label="Click me!"></lca-button>
+```
+
+---
+
+## ⚙️ Scripts disponibles
+
+- `ng serve` - Inicia el servidor de desarrollo.
+- `ng build` - Compila el proyecto para producción.
+- `ng test` - Ejecuta las pruebas unitarias.
+- `ng lint` - Analiza el código para asegurarse de que cumple con las normas de estilo y calidad.
+
+---
+
+## 📖 Documentación
+
+Cada componente viene con una documentación completa sobre su uso, propiedades, y eventos. Puedes encontrar más detalles en los archivos de cada componente dentro del directorio `/src/lib`.
+
+Para más información sobre Angular CLI, visita [Angular CLI Documentation](https://angular.io/cli).
+
+---
+
+## 👥 Contribuciones
+
+Si deseas contribuir a este proyecto, por favor sigue los pasos a continuación:
+
+1. Haz un fork del repositorio.
+2. Crea una nueva rama: `git checkout -b mi-nueva-rama`.
+3. Realiza tus cambios y haz commit: `git commit -m 'Mi nueva funcionalidad'`.
+4. Sube tu rama: `git push origin mi-nueva-rama`.
+5. Abre un Pull Request.
+
+---
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
+
+---
+
+¡Gracias por usar **Components Library LCA**! 😊 Si tienes alguna duda o sugerencia, no dudes en abrir un issue o ponerte en contacto conmigo.
