@@ -1,0 +1,7 @@
+MIT License
+
+Copyright (c) [2024] [leoncanare]
+
+Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y archivos de documentación asociados (el "Software"), para tratar en el Software sin restricción, incluyendo sin limitación los derechos para usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar y/o vender copias del Software, y para permitir a las personas a las que se les proporcione el Software a hacer lo mismo, sujeto a las siguientes condiciones:
+
+Lo anterior se proporciona "TAL CUAL", sin garantía de ningún tipo, expresa o implícita, incluyendo pero no limitado a las garantías de comercialización, adecuación para un propósito particular y no infracción. En ningún caso los autores o titulares del copyright serán responsables por cualquier reclamación, daño o cualquier otra responsabilidad, ya sea en una acción contractual, agravio o de otro tipo, que surja de, o en conexión con el software o el uso u otros tratos en el Software.
