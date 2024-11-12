@@ -3,6 +3,10 @@
 
 Bienvenido a **Components Library LCA**, una librería de componentes UI reactivos desarrollada con Angular CLI v17.3.8. Esta librería está diseñada para facilitar la creación de aplicaciones front-end modernas, proporcionando una colección de componentes reutilizables y altamente personalizables para tu proyecto.
 
+## 🔗 Puedes verlo desplegado en el siguiente enlace:
+
+https://components-library-lca.netlify.app/
+
 ---
 
 ## 🚀 Características principales
